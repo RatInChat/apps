@@ -5,12 +5,9 @@ module.exports = {
         // make the page on mainframe
         const box = document.createElement('div');
         box.id = 'settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso';
-        
-        box.style.width = 'calc(100% - 10px)';
-        box.style.height = 'calc(100% - 10px)';
+        box.style.width = '100%';
+        box.style.height = 'calc(100% - 55px)';
         box.style.position = 'absolute';
-        box.style.top = '5px';
-        box.style.left = '5px';
         box.style.backgroundColor = 'rgba(16, 16, 16, 0.9)';
         box.style.borderRadius = '5px';
         box.style.zIndex = '10000';
