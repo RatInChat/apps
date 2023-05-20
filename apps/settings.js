@@ -19,7 +19,7 @@ module.exports = {
         title.innerText = page;
         box.appendChild(title);
 
-        if (page == 'prefrences') {
+        if (page == 'preferences') {
             console.log('I think it worked')
         }
     },
