@@ -50,6 +50,8 @@ module.exports = {
   
       close.addEventListener('click', () => {
         box.remove();
+        const icon = document.querySelector(`img[src="${this.icon}"]`);
+        icon.remove();
       });
   
       box.appendChild(close);
