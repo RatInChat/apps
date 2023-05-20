@@ -9,7 +9,7 @@ module.exports = {
         box.style.height = `calc(100vh - 55px)`;
         box.style.top = '0';
         box.style.position = 'fixed';
-        box.style.backgroundColor = '#000000';
+        box.style.backgroundColor = '#101010';
         box.style.borderRadius = '5px';
         box.style.zIndex = '10000';
         box.style.display = 'flex';
@@ -27,15 +27,22 @@ module.exports = {
         box.appendChild(title);
         const close = document.createElement('button');
         close.innerText = 'X';
-        close.style.position = 'absolute';
-        close.style.top = '0';
-        close.style.right = '0';
-        close.style.borderRadius = '5px';
-        close.style.backgroundColor = 'red';
-        close.style.color = 'white';
-        close.style.border = 'none';
-        close.style.padding = '5px';
-        close.style.margin = '5px';
+        close.style = `
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #101010;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px;
+            cursor: pointer;
+        `
+        
+        close.addEventListener('mouseover', () => {
+            close.style.backgroundColor = 'red';
+        });
 
         close.addEventListener('click', () => {
             box.remove();
