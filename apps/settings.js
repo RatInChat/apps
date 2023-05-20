@@ -39,9 +39,13 @@ module.exports = {
             margin: 5px;
             cursor: pointer;
         `
-        
+
         close.addEventListener('mouseover', () => {
             close.style.backgroundColor = 'red';
+        });
+
+        close.addEventListener('mouseout', () => {
+            close.style.backgroundColor = '#101010';
         });
 
         close.addEventListener('click', () => {
