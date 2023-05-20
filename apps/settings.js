@@ -5,9 +5,10 @@ module.exports = {
         // make the page on mainframe
         const box = document.createElement('div');
         box.id = 'settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso';
-        box.style.width = '100%';
-        box.style.height = 'calc(100% - 55px)';
-        box.style.position = 'absolute';
+        box.style.width = '100vw';
+        box.style.height = `calc(100vh - 55px)`;
+        box.style.top = '0';
+        box.style.position = 'fixed';
         box.style.backgroundColor = 'rgba(16, 16, 16, 0.9)';
         box.style.borderRadius = '5px';
         box.style.zIndex = '10000';
@@ -17,6 +18,7 @@ module.exports = {
         box.style.justifyContent = 'center';
         box.style.border = '1px solid #000000';
         box.style.boxShadow = '0px 0px 10px 0px #000000';
+
         
         mainframe.appendChild(box);
         
