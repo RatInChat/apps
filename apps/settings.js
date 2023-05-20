@@ -25,14 +25,26 @@ module.exports = {
         const title = document.createElement('h1');
         title.innerText = page;
         box.appendChild(title);
+        const close = document.createElement('button');
+        close.innerText = 'X';
+        close.style.position = 'absolute';
+        close.style.top = '0';
+        close.style.right = '0';
+        close.style.borderRadius = '5px';
+        close.style.backgroundColor = 'red';
+        close.style.color = 'white';
+        close.style.border = 'none';
+        close.style.padding = '5px';
+        close.style.margin = '5px';
+
+        close.addEventListener('click', () => {
+            box.remove();
+        });
+
+        box.appendChild(close);
 
         if (page == 'preferences') {
             console.log('I think it worked')
         }
-    },
-    async close(mainframe, data, page) {
-        // close the page on mainframe
-        const box = document.getElementById('settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
-        box.remove();
     }
 }
