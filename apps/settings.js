@@ -15,11 +15,7 @@ module.exports = {
         box.style.display = 'flex';
         box.style.flexDirection = 'column';
         box.style.alignItems = 'center';
-        box.style.justifyContent = 'center';
-        box.style.border = '1px solid #000000';
-        box.style.boxShadow = '0px 0px 10px 0px #000000';
-
-        
+        box.style.justifyContent = 'center';        
         mainframe.appendChild(box);
         
         const title = document.createElement('h1');
