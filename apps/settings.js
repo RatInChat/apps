@@ -50,7 +50,7 @@ module.exports = {
 
         box.appendChild(close);
 
-        if (page == 'preferences') {
+        if (page == 'Preferences') {
             console.log('I think it worked')
         }
     }
