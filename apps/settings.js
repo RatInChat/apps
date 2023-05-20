@@ -20,7 +20,7 @@ module.exports = {
         box.appendChild(title);
 
         if (page == 'prefrences') {
-            
+            console.log('I think it worked')
         }
     },
     async close(mainframe, data, page) {
