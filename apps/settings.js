@@ -1,5 +1,5 @@
 module.exports = {
-    icon: 'https://cdn-icons-png.flaticon.com/512/126/126472.png',
+    icon: 'https://p1.hiclipart.com/preview/909/115/679/gear-icon-settings-icon-seo-and-online-marketing-icon-material-property-logo-symbol-hardware-accessory-png-clipart.jpg',
     ads: false,
     async execute(mainframe, data, page) {
       // Create the settings container
