@@ -24,7 +24,7 @@ module.exports = {
     box.appendChild(title);
 
     const close = document.createElement('button');
-    close.innerText = 'X';
+    close.innerText = '✕';
     close.style = `
       position: absolute;
       top: 0;
@@ -40,8 +40,6 @@ module.exports = {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 18px;
-      font-weight: bold;
     `;
 
     close.addEventListener('mouseover', () => {
@@ -109,23 +107,24 @@ module.exports = {
     const minimize = document.createElement('button');
     minimize.innerText = '🗕';
     minimize.style = `
-      position: absolute;
-      top: 0;
-      right: 80px;
-      background-color: #101010;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 5px;
-      padding: 5px;
-      margin: 5px;
-      cursor: pointer;
-      width: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      font-weight: bold;
-    `;
+    position: absolute;
+    top: 0;
+    right: 80px;
+    background-color: #101010;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+  `;
     
     minimize.addEventListener('mouseover', () => {
       minimize.style.backgroundColor = 'gray';
