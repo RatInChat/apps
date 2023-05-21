@@ -1,3 +1,5 @@
+const { set } = require("mongoose");
+
 module.exports = {
   icon: 'https://p1.hiclipart.com/preview/909/115/679/gear-icon-settings-icon-seo-and-online-marketing-icon-material-property-logo-symbol-hardware-accessory-png-clipart.jpg',
   ads: false,
@@ -136,7 +138,7 @@ module.exports = {
 
     minimize.addEventListener('click', () => {
       const icon = document.querySelector(`img[src="${this.icon}"]`);
-      icon.classList.remove('app-icon-animation-reverse');
+      icon.classList.remove('app-icon-animation');
       box.classList.add('minimize-animation');
       
       setTimeout(() => {
@@ -158,7 +160,12 @@ module.exports = {
       box.style.display = 'flex';
       box.classList.add('maximize-animation');
       setTimeout(() => {
+        icon.classList.add('app-icon-animation');
         box.classList.remove('maximize-animation');
+        setTimeout(() => {
+          icon.classList.remove('app-icon-animation');
+        }
+        , 500);
       }
       , 500);
     });
