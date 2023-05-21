@@ -1,5 +1,3 @@
-const { set } = require("mongoose");
-
 module.exports = {
   icon: 'https://p1.hiclipart.com/preview/909/115/679/gear-icon-settings-icon-seo-and-online-marketing-icon-material-property-logo-symbol-hardware-accessory-png-clipart.jpg',
   ads: false,
