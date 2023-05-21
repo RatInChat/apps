@@ -136,7 +136,7 @@ module.exports = {
 
     minimize.addEventListener('click', () => {
       const icon = document.querySelector(`img[src="${this.icon}"]`);
-      minimize.classList.add('minimize-animation');
+      box.classList.add('minimize-animation');
       
       setTimeout(() => {
         box.style.display = 'none';
