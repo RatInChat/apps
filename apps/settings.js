@@ -136,6 +136,7 @@ module.exports = {
 
     minimize.addEventListener('click', () => {
       const icon = document.querySelector(`img[src="${this.icon}"]`);
+      icon.classList.remove('app-icon-animation');
       box.classList.add('minimize-animation');
       
       setTimeout(() => {
@@ -143,6 +144,7 @@ module.exports = {
         icon.classList.add('icon-bounce-animation')
         setTimeout(() => {
           icon.classList.remove('icon-bounce-animation');
+          box.classList.remove('minimize-animation');
         }
         , 500);
       }
