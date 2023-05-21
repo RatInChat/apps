@@ -55,7 +55,7 @@ module.exports = {
 
       setTimeout(() => {
         icon.remove();
-      }, 0.5);
+      }, 500);
     });
 
     box.appendChild(close);
