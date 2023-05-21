@@ -37,6 +37,11 @@ module.exports = {
       margin: 5px;
       cursor: pointer;
       width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
     `;
 
     close.addEventListener('mouseover', () => {
@@ -118,7 +123,10 @@ module.exports = {
       display: flex;
       justify-content: center;
       align-items: center;
+      font-size: 18px;
+      font-weight: bold;
     `;
+    
     minimize.addEventListener('mouseover', () => {
       minimize.style.backgroundColor = 'gray';
     });
