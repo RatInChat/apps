@@ -160,10 +160,10 @@ module.exports = {
       box.style.display = 'flex';
       box.classList.add('maximize-animation');
       setTimeout(() => {
-        icon.classList.add('app-icon-animation');
+        icon.classList.add('icon-bounce-animation');
         box.classList.remove('maximize-animation');
         setTimeout(() => {
-          icon.classList.remove('app-icon-animation');
+          icon.classList.remove('icon-bounce-animation');
         }
         , 500);
       }
