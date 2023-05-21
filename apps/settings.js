@@ -1,5 +1,5 @@
 module.exports = {
-    icon: 'https://static.thenounproject.com/png/1008927-200.png',
+    icon: 'https://cdn-icons-png.flaticon.com/512/126/126472.png',
     ads: false,
     async execute(mainframe, data, page) {
       // Create the settings container
