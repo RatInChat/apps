@@ -73,8 +73,11 @@ module.exports = {
       margin: 5px;
       cursor: pointer;
       width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     `;
-    restore_maximize.innerText = '🗖';
+    restore_maximize.innerText = '🗗';
 
     restore_maximize.addEventListener('mouseover', () => {
       restore_maximize.style.backgroundColor = 'gray';
@@ -85,12 +88,12 @@ module.exports = {
     });
 
     restore_maximize.addEventListener('click', () => {
-      if (restore_maximize.innerText == '🗖') {
-        restore_maximize.innerText = '🗗';
+      if (restore_maximize.innerText == '🗗') {
+        restore_maximize.innerText = '🗖';
         box.style.width = '50vw';
         box.style.height = `calc(50vh - 55px)`;
       } else {
-        restore_maximize.innerText = '🗖';
+        restore_maximize.innerText = '🗗';
         box.style.width = '100vw';
         box.style.height = `calc(100vh - 55px)`;
       }
@@ -112,6 +115,9 @@ module.exports = {
       margin: 5px;
       cursor: pointer;
       width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     `;
     minimize.addEventListener('mouseover', () => {
       minimize.style.backgroundColor = 'gray';
