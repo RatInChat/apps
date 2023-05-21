@@ -136,7 +136,7 @@ module.exports = {
 
     minimize.addEventListener('click', () => {
       const icon = document.querySelector(`img[src="${this.icon}"]`);
-      icon.classList.remove('app-icon-animation');
+      icon.classList.remove('app-icon-animation-reverse');
       box.classList.add('minimize-animation');
       
       setTimeout(() => {
@@ -156,6 +156,11 @@ module.exports = {
     const icon = document.querySelector(`img[src="${this.icon}"]`);
     icon.addEventListener('click', () => {
       box.style.display = 'flex';
+      box.classList.add('maximize-animation');
+      setTimeout(() => {
+        box.classList.remove('maximize-animation');
+      }
+      , 500);
     });
 
     if (page == 'Preferences') {
