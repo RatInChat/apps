@@ -18,13 +18,11 @@ module.exports = {
     box.style.justifyContent = 'center';        
     mainframe.appendChild(box);
 
-    // Create the title
     const title = document.createElement('h1');
     title.innerText = page;
     title.style.color = '#FFFFFF';
     box.appendChild(title);
 
-    // Create the close button
     const close = document.createElement('button');
     close.innerText = 'X';
     close.style = `
@@ -38,6 +36,7 @@ module.exports = {
       padding: 5px;
       margin: 5px;
       cursor: pointer;
+      width: 40px;
     `;
 
     close.addEventListener('mouseover', () => {
@@ -59,6 +58,79 @@ module.exports = {
     });
 
     box.appendChild(close);
+
+    const restore_maximize = document.createElement('button');
+
+    restore_maximize.style = `
+      position: absolute;
+      top: 0;
+      right: 40px;
+      background-color: #101010;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 5px;
+      padding: 5px;
+      margin: 5px;
+      cursor: pointer;
+      width: 40px;
+    `;
+    restore_maximize.innerText = '🗖';
+
+    restore_maximize.addEventListener('mouseover', () => {
+      restore_maximize.style.backgroundColor = 'gray';
+    });
+
+    restore_maximize.addEventListener('mouseout', () => {
+      restore_maximize.style.backgroundColor = '#101010';
+    });
+
+    restore_maximize.addEventListener('click', () => {
+      if (restore_maximize.innerText == '🗖') {
+        restore_maximize.innerText = '🗗';
+        box.style.width = '50vw';
+        box.style.height = `calc(50vh - 55px)`;
+      } else {
+        restore_maximize.innerText = '🗖';
+        box.style.width = '100vw';
+        box.style.height = `calc(100vh - 55px)`;
+      }
+    });
+
+    box.appendChild(restore_maximize);
+
+    const minimize = document.createElement('button');
+    minimize.innerText = '🗕';
+    minimize.style = `
+      position: absolute;
+      top: 0;
+      right: 80px;
+      background-color: #101010;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 5px;
+      padding: 5px;
+      margin: 5px;
+      cursor: pointer;
+      width: 40px;
+    `;
+    minimize.addEventListener('mouseover', () => {
+      minimize.style.backgroundColor = 'gray';
+    });
+    
+    minimize.addEventListener('mouseout', () => {
+      minimize.style.backgroundColor = '#101010';
+    });
+
+    minimize.addEventListener('click', () => {
+      box.style.display = 'none';
+    });
+
+    box.appendChild(minimize);
+
+    const icon = document.querySelector(`img[src="${this.icon}"]`);
+    icon.addEventListener('click', () => {
+      box.style.display = 'flex';
+    });
 
     if (page == 'Preferences') {
       const content = document.createElement('div');
