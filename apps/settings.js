@@ -135,7 +135,18 @@ module.exports = {
     });
 
     minimize.addEventListener('click', () => {
-      box.style.display = 'none';
+      const icon = document.querySelector(`img[src="${this.icon}"]`);
+      minimize.classList.add('minimize-animation');
+      
+      setTimeout(() => {
+        box.style.display = 'none';
+        icon.classList.add('icon-bounce-animation')
+        setTimeout(() => {
+          icon.classList.remove('icon-bounce-animation');
+        }
+        , 500);
+      }
+      , 500);
     });
 
     box.appendChild(minimize);
