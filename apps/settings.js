@@ -102,17 +102,26 @@ module.exports = {
     restore_maximize.addEventListener('mouseout', () => {
       restore_maximize.style.backgroundColor = '#101010';
     });
+    
+    let old_pos = {
+      x: 0,
+      y: 0
+    };
 
     restore_maximize.addEventListener('click', () => {
       if (restore_maximize.innerText == '🗗') {
         restore_maximize.innerText = '🗖';
         box.style.width = '50vw';
         box.style.height = `calc(50vh - 55px)`;
+        box.style.left = `${old_pos.x}px`;
+        box.style.top = `${old_pos.y}px`;
         restored = true;
       } else {
         restore_maximize.innerText = '🗗';
         box.style.width = '100vw';
         box.style.height = `calc(100vh - 55px)`;
+        old_pos.x = box.offsetLeft;
+        old_pos.y = box.offsetTop;
         box.style.left = '0';
         box.style.top = '0';
         restored = false;
