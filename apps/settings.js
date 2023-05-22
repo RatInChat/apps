@@ -35,11 +35,11 @@ module.exports = {
       border-radius: 5px;
       padding: 5px;
       margin: 5px;
-      cursor: pointer;
       width: 40px;
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 10001;
     `;
 
     close.addEventListener('mouseover', () => {
@@ -74,11 +74,11 @@ module.exports = {
       border-radius: 5px;
       padding: 5px;
       margin: 5px;
-      cursor: pointer;
       width: 40px;
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 10001;
     `;
     restore_maximize.innerText = '🗗';
 
@@ -116,7 +116,6 @@ module.exports = {
     border-radius: 5px;
     padding: 5px;
     margin: 5px;
-    cursor: pointer;
     width: 40px;
     display: flex;
     justify-content: center;
@@ -124,6 +123,7 @@ module.exports = {
     font-size: 18px;
     font-weight: bold;
     line-height: 1;
+    z-index: 10001;
   `;
     
     minimize.addEventListener('mouseover', () => {
