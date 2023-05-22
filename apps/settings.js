@@ -40,6 +40,12 @@ module.exports = {
       justify-content: center !important;
       align-items: center !important;
       z-index: 10001 !important;
+      -webkit-touch-callout: none !important;
+      -webkit-user-select: none !important;
+      -khtml-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
     `;
 
     close.addEventListener('mouseover', () => {
@@ -79,6 +85,12 @@ module.exports = {
       justify-content: center !important;
       align-items: center !important;
       z-index: 10001 !important;
+      -webkit-touch-callout: none !important;
+      -webkit-user-select: none !important;
+      -khtml-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
     `;
     restore_maximize.innerText = '🗗';
     let restored = false;
@@ -153,7 +165,13 @@ module.exports = {
       font-size: 18px !important;
       font-weight: bold !important;
       line-height: 1 !important;
-      z-index: 10001 !important;    
+      z-index: 10001 !important;
+      -webkit-touch-callout: none !important;
+      -webkit-user-select: none !important;
+      -khtml-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important; 
   `;
     let minimized = false;
     minimize.addEventListener('mouseover', () => {
