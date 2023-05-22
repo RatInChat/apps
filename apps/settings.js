@@ -102,60 +102,64 @@ module.exports = {
       }
     });
 
-    // Add draggable and resizable features to the minimized window
-    // Lets see how buggy it is, first try
-    let isDragging = false;
-    let dragOffsetX = 0;
-    let dragOffsetY = 0;
-    let resizeOffsetX = 0;
-    let resizeOffsetY = 0;
+    // Add resizable feature to the window
+    // Let's focus one at a time lol
+    let isResizing = false;
+    let resizeDirection = '';
+
+    // Define the resize handles (corners) of the window
+    const resizeHandles = ['nw', 'ne', 'sw', 'se'];
 
     restore_maximize.addEventListener('mousedown', (e) => {
       if (e.button !== 0) return; // Only activate on left mouse button
-      isDragging = true;
-      dragOffsetX = e.clientX - box.offsetLeft;
-      dragOffsetY = e.clientY - box.offsetTop;
+      isResizing = true;
+
+      // Determine the resize direction based on the clicked handle
+      const clickedHandle = e.target.dataset.resizeHandle;
+      if (resizeHandles.includes(clickedHandle)) {
+        resizeDirection = clickedHandle;
+        e.preventDefault(); // Prevent text selection while resizing
+      }
     });
 
     document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      
-      // Calculate the new position based on the drag offset
-      const newX = e.clientX - dragOffsetX;
-      const newY = e.clientY - dragOffsetY;
+      if (!isResizing) return;
 
-      // Restrict the dragging within 10px from the top
-      const topLimit = 10;
-      const constrainedY = Math.max(topLimit, newY);
+      // Calculate the new size based on the resize direction
+      const boxRect = box.getBoundingClientRect();
+      const newWidth = e.clientX - boxRect.left;
+      const newHeight = e.clientY - boxRect.top;
 
-      // Update the position of the box
-      box.style.left = `${newX}px`;
-      box.style.top = `${constrainedY}px`;
+      // Update the size of the box based on the resize direction
+      switch (resizeDirection) {
+        case 'nw':
+          box.style.width = `${newWidth}px`;
+          box.style.height = `${newHeight}px`;
+          break;
+        case 'ne':
+          box.style.width = `${newWidth}px`;
+          box.style.height = `${newHeight}px`;
+          box.style.top = `${boxRect.top}px`;
+          break;
+        case 'sw':
+          box.style.width = `${newWidth}px`;
+          box.style.height = `${newHeight}px`;
+          box.style.left = `${boxRect.left}px`;
+          break;
+        case 'se':
+          box.style.width = `${newWidth}px`;
+          box.style.height = `${newHeight}px`;
+          box.style.left = `${boxRect.left}px`;
+          box.style.top = `${boxRect.top}px`;
+          break;
+      }
     });
 
     document.addEventListener('mouseup', () => {
-      isDragging = false;
+      isResizing = false;
+      resizeDirection = '';
     });
-
-    box.addEventListener('mousedown', (e) => {
-      if (e.button !== 0) return; // Only activate on left mouse button
-      resizeOffsetX = e.clientX - box.offsetWidth;
-      resizeOffsetY = e.clientY - box.offsetHeight;
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (e.buttons !== 1) return; // Only activate when left mouse button is held
-      if (e.clientX <= 10 || e.clientY <= 10) return; // Restrict resizing within 10px from the top
-
-      // Calculate the new size based on the resize offset
-      const newWidth = e.clientX - resizeOffsetX;
-      const newHeight = e.clientY - resizeOffsetY;
-
-      // Update the size of the box
-      box.style.width = `${newWidth}px`;
-      box.style.height = `${newHeight}px`;
-    });
-
+    
     box.appendChild(restore_maximize);
 
     const minimize = document.createElement('button');
