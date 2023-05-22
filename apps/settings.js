@@ -26,20 +26,20 @@ module.exports = {
     const close = document.createElement('button');
     close.innerText = '✕';
     close.style = `
-      position: absolute;
-      top: 0;
-      right: 0;
-      background-color: #101010;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 5px;
-      padding: 5px;
-      margin: 5px;
-      width: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 10001;
+      position: absolute !important;
+      top: 0 !important;
+      right: 0 !important;
+      background-color: #101010 !important;
+      color: #FFFFFF !important;
+      border: none !important;
+      border-radius: 5px !important;
+      padding: 5px !important;
+      margin: 5px !important;
+      width: 40px !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      z-index: 10001 !important;
     `;
 
     close.addEventListener('mouseover', () => {
@@ -65,20 +65,20 @@ module.exports = {
     const restore_maximize = document.createElement('button');
 
     restore_maximize.style = `
-      position: absolute;
-      top: 0;
-      right: 40px;
-      background-color: #101010;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 5px;
-      padding: 5px;
-      margin: 5px;
-      width: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 10001;
+      position: absolute !important;
+      top: 0 !important;
+      right: 40px !important;
+      background-color: #101010 !important;
+      color: #FFFFFF !important;
+      border: none !important;
+      border-radius: 5px !important;
+      padding: 5px !important;
+      margin: 5px !important;
+      width: 40px !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      z-index: 10001 !important;
     `;
     restore_maximize.innerText = '🗗';
 
@@ -107,23 +107,23 @@ module.exports = {
     const minimize = document.createElement('button');
     minimize.innerText = '🗕';
     minimize.style = `
-    position: absolute;
-    top: 0;
-    right: 80px;
-    background-color: #101010;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1;
-    z-index: 10001;
+      position: absolute !important;
+      top: 0 !important;
+      right: 80px !important;
+      background-color: #101010 !important;
+      color: #FFFFFF !important;
+      border: none !important;
+      border-radius: 5px !important;
+      padding: 5px !important;
+      margin: 5px !important;
+      width: 40px !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      font-size: 18px !important;
+      font-weight: bold !important;
+      line-height: 1 !important;
+      z-index: 10001 !important;    
   `;
     
     minimize.addEventListener('mouseover', () => {
