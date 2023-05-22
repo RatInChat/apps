@@ -81,7 +81,8 @@ module.exports = {
       z-index: 10001 !important;
     `;
     restore_maximize.innerText = '🗗';
-
+    let restored = false;
+    
     restore_maximize.addEventListener('mouseover', () => {
       restore_maximize.style.backgroundColor = 'gray';
     });
@@ -95,30 +96,38 @@ module.exports = {
         restore_maximize.innerText = '🗖';
         box.style.width = '50vw';
         box.style.height = `calc(50vh - 55px)`;
+        restored = true;
       } else {
         restore_maximize.innerText = '🗗';
         box.style.width = '100vw';
         box.style.height = `calc(100vh - 55px)`;
+        box.style.left = '0';
+        box.style.top = '0';
+        restored = false;
       }
     });
-
     let isDragging = false;
+    let dragOffsetX = 0;
     let dragOffsetY = 0;
-
+    
     box.addEventListener('mousedown', (e) => {
-      if (e.clientY <= box.offsetTop + 10) {
+      if (!restored) return;
+      if (e.clientY <= box.offsetTop + 30) {
         isDragging = true;
+        dragOffsetX = e.clientX - box.offsetLeft;
         dragOffsetY = e.clientY - box.offsetTop;
       }
     });
-
+    
     document.addEventListener('mousemove', (e) => {
       if (isDragging) {
+        const newX = e.clientX - dragOffsetX;
         const newY = e.clientY - dragOffsetY;
+        box.style.left = `${newX}px`;
         box.style.top = `${Math.max(newY, 0)}px`;
       }
     });
-
+    
     document.addEventListener('mouseup', () => {
       isDragging = false;
     });
