@@ -103,22 +103,115 @@ module.exports = {
     });
 
     // Add resizable feature to the window
-    // Let's focus one at a time lol
     let isResizing = false;
     let resizeDirection = '';
 
-    // Define the resize handles (corners) of the window
-    const resizeHandles = ['nw', 'ne', 'sw', 'se'];
+    // Define the resize handles (borders) of the window
+    const resizeHandles = {
+      top: 'n',
+      right: 'e',
+      bottom: 's',
+      left: 'w',
+    };
+
+    // Define the border width for resizing
+    const borderWidth = 5; // Adjust as needed
+
+    // Set cursor styles for each resize direction
+    const cursorStyles = {
+      n: 'ns-resize',
+      e: 'ew-resize',
+      s: 'ns-resize',
+      w: 'ew-resize',
+    };
+
+    // Set cursor style based on the resize direction
+    function setCursorStyle(element, direction) {
+      element.style.cursor = cursorStyles[direction];
+    }
+
+    // Remove cursor style from the element
+    function removeCursorStyle(element) {
+      element.style.cursor = '';
+    }
+
+    // Check if the mouse position is within the border width of the given side
+    function isWithinBorderWidth(position, side, boxRect) {
+      return (
+        position >= boxRect[side] - borderWidth / 2 &&
+        position <= boxRect[side] + borderWidth / 2
+      );
+    }
+
+    // Check if the mouse position is within the resize borders of the box
+    function isWithinResizeBorders(clientX, clientY, boxRect) {
+      const { top, right, bottom, left } = boxRect;
+      return (
+        isWithinBorderWidth(clientX, 'left', boxRect) ||
+        isWithinBorderWidth(clientX, 'right', boxRect) ||
+        isWithinBorderWidth(clientY, 'top', boxRect) ||
+        isWithinBorderWidth(clientY, 'bottom', boxRect) ||
+        (clientX > left && clientX < right && clientY > top && clientY < bottom)
+      );
+    }
+
+    // Check if the mouse position is within the corner handles of the box
+    function isWithinCornerHandles(clientX, clientY, boxRect) {
+      const { top, right, bottom, left } = boxRect;
+      return (
+        (clientX >= left - borderWidth / 2 && clientX <= left + borderWidth / 2) &&
+        (clientY >= top - borderWidth / 2 && clientY <= top + borderWidth / 2) ||
+        (clientX >= right - borderWidth / 2 && clientX <= right + borderWidth / 2) &&
+        (clientY >= top - borderWidth / 2 && clientY <= top + borderWidth / 2) ||
+        (clientX >= right - borderWidth / 2 && clientX <= right + borderWidth / 2) &&
+        (clientY >= bottom - borderWidth / 2 && clientY <= bottom + borderWidth / 2) ||
+        (clientX >= left - borderWidth / 2 && clientX <= left + borderWidth / 2) &&
+        (clientY >= bottom - borderWidth / 2 && clientY <= bottom + borderWidth / 2)
+      );
+    }
 
     restore_maximize.addEventListener('mousedown', (e) => {
       if (e.button !== 0) return; // Only activate on left mouse button
-      isResizing = true;
 
-      // Determine the resize direction based on the clicked handle
-      const clickedHandle = e.target.dataset.resizeHandle;
-      if (resizeHandles.includes(clickedHandle)) {
-        resizeDirection = clickedHandle;
+      const boxRect = box.getBoundingClientRect();
+      const clientX = e.clientX;
+      const clientY = e.clientY;
+
+      // Check if the mouse position is within the resize borders or corner handles
+      if (isWithinResizeBorders(clientX, clientY, boxRect)) {
+        isResizing = true;
+
+        // Determine the resize direction based on the clicked position
+        if (isWithinCornerHandles(clientX, clientY, boxRect)) {
+          // Determine the corner handle that was clicked
+          if (clientX <= boxRect.left + borderWidth / 2) {
+            if (clientY <= boxRect.top + borderWidth / 2) {
+              resizeDirection = 'nw';
+            } else {
+              resizeDirection = 'sw';
+            }
+          } else {
+            if (clientY <= boxRect.top + borderWidth / 2) {
+              resizeDirection = 'ne';
+            } else {
+              resizeDirection = 'se';
+            }
+          }
+        } else {
+          // Determine the side handle that was clicked
+          if (isWithinBorderWidth(clientX, 'left', boxRect)) {
+            resizeDirection = 'w';
+          } else if (isWithinBorderWidth(clientX, 'right', boxRect)) {
+            resizeDirection = 'e';
+          } else if (isWithinBorderWidth(clientY, 'top', boxRect)) {
+            resizeDirection = 'n';
+          } else if (isWithinBorderWidth(clientY, 'bottom', boxRect)) {
+            resizeDirection = 's';
+          }
+        }
+
         e.preventDefault(); // Prevent text selection while resizing
+        setCursorStyle(document.body, resizeDirection);
       }
     });
 
@@ -127,8 +220,8 @@ module.exports = {
 
       // Calculate the new size based on the resize direction
       const boxRect = box.getBoundingClientRect();
-      const newWidth = e.clientX - boxRect.left;
-      const newHeight = e.clientY - boxRect.top;
+      const newWidth = boxRect.width + (e.movementX || 0);
+      const newHeight = boxRect.height + (e.movementY || 0);
 
       // Update the size of the box based on the resize direction
       switch (resizeDirection) {
@@ -139,27 +232,44 @@ module.exports = {
         case 'ne':
           box.style.width = `${newWidth}px`;
           box.style.height = `${newHeight}px`;
-          box.style.top = `${boxRect.top}px`;
+          box.style.top = `${boxRect.top - (newHeight - boxRect.height)}px`;
           break;
         case 'sw':
           box.style.width = `${newWidth}px`;
           box.style.height = `${newHeight}px`;
-          box.style.left = `${boxRect.left}px`;
+          box.style.left = `${boxRect.left - (newWidth - boxRect.width)}px`;
           break;
         case 'se':
           box.style.width = `${newWidth}px`;
           box.style.height = `${newHeight}px`;
-          box.style.left = `${boxRect.left}px`;
-          box.style.top = `${boxRect.top}px`;
+          box.style.left = `${boxRect.left - (newWidth - boxRect.width)}px`;
+          box.style.top = `${boxRect.top - (newHeight - boxRect.height)}px`;
+          break;
+        case 'n':
+          box.style.height = `${newHeight}px`;
+          box.style.top = `${boxRect.top + (e.movementY || 0)}px`;
+          break;
+        case 'e':
+          box.style.width = `${newWidth}px`;
+          break;
+        case 's':
+          box.style.height = `${newHeight}px`;
+          break;
+        case 'w':
+          box.style.width = `${newWidth}px`;
+          box.style.left = `${boxRect.left + (e.movementX || 0)}px`;
           break;
       }
     });
 
     document.addEventListener('mouseup', () => {
-      isResizing = false;
-      resizeDirection = '';
+      if (isResizing) {
+        isResizing = false;
+        resizeDirection = '';
+        removeCursorStyle(document.body);
+      }
     });
-    
+
     box.appendChild(restore_maximize);
 
     const minimize = document.createElement('button');
