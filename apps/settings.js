@@ -102,6 +102,60 @@ module.exports = {
       }
     });
 
+    // Add draggable and resizable features to the minimized window
+    // Lets see how buggy it is, first try
+    let isDragging = false;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+    let resizeOffsetX = 0;
+    let resizeOffsetY = 0;
+
+    restore_maximize.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return; // Only activate on left mouse button
+      isDragging = true;
+      dragOffsetX = e.clientX - box.offsetLeft;
+      dragOffsetY = e.clientY - box.offsetTop;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      
+      // Calculate the new position based on the drag offset
+      const newX = e.clientX - dragOffsetX;
+      const newY = e.clientY - dragOffsetY;
+
+      // Restrict the dragging within 10px from the top
+      const topLimit = 10;
+      const constrainedY = Math.max(topLimit, newY);
+
+      // Update the position of the box
+      box.style.left = `${newX}px`;
+      box.style.top = `${constrainedY}px`;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    box.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return; // Only activate on left mouse button
+      resizeOffsetX = e.clientX - box.offsetWidth;
+      resizeOffsetY = e.clientY - box.offsetHeight;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (e.buttons !== 1) return; // Only activate when left mouse button is held
+      if (e.clientX <= 10 || e.clientY <= 10) return; // Restrict resizing within 10px from the top
+
+      // Calculate the new size based on the resize offset
+      const newWidth = e.clientX - resizeOffsetX;
+      const newHeight = e.clientY - resizeOffsetY;
+
+      // Update the size of the box
+      box.style.width = `${newWidth}px`;
+      box.style.height = `${newHeight}px`;
+    });
+
     box.appendChild(restore_maximize);
 
     const minimize = document.createElement('button');
@@ -125,7 +179,7 @@ module.exports = {
       line-height: 1 !important;
       z-index: 10001 !important;    
   `;
-    
+    let minimized = false;
     minimize.addEventListener('mouseover', () => {
       minimize.style.backgroundColor = 'gray';
     });
@@ -145,6 +199,7 @@ module.exports = {
         setTimeout(() => {
           icon.classList.remove('icon-bounce-animation');
           box.classList.remove('minimize-animation');
+          minimized = true;
         }
         , 500);
       }
@@ -155,6 +210,7 @@ module.exports = {
 
     const icon = document.querySelector(`img[src="${this.icon}"]`);
     icon.addEventListener('click', () => {
+      if (!minimized) return;
       box.style.display = 'flex';
       box.classList.add('maximize-animation');
       setTimeout(() => {
@@ -162,6 +218,7 @@ module.exports = {
         box.classList.remove('maximize-animation');
         setTimeout(() => {
           icon.classList.remove('icon-bounce-animation');
+          minimized = false;
         }
         , 500);
       }
