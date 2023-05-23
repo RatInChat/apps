@@ -165,10 +165,21 @@ module.exports = {
     const borderWidth = 1; // 1 pixel border width
     const borderColor = 'white';
 
-    box.style.border = `${borderWidth}px solid ${borderColor}`;
+    function updateBorderStyle() {
+      if (restored) {
+        box.style.border = `${borderWidth}px solid ${borderColor}`;
+      } else {
+        box.style.border = 'none';
+      }
+    }
+
+    restored.addEventListener('change', updateBorderStyle);
+
+    updateBorderStyle();
 
     function setResizeCursor(direction) {
       let cursor = '';
+      if (!restored) return;
       if (direction === 'left' || direction === 'right') {
         cursor = 'ew-resize';
       } else if (direction === 'top' || direction === 'bottom') {
@@ -182,7 +193,7 @@ module.exports = {
     }
 
     document.addEventListener('mousedown', (e) => {
-      if (restored) {
+      if (restored && !isDragging) {
         const { clientX, clientY } = e;
         const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = box;
 
