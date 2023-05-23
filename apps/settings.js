@@ -195,10 +195,10 @@ module.exports = {
         const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = box;
     
         if (
-          clientX >= offsetLeft - 3 &&
-          clientX <= offsetLeft + borderWidth + 3 &&
-          clientY >= offsetTop - 3 &&
-          clientY <= offsetTop + offsetHeight + 3
+          clientX >= offsetLeft - 2 &&
+          clientX <= offsetLeft + borderWidth + 2 &&
+          clientY >= offsetTop - 2 &&
+          clientY <= offsetTop + offsetHeight + 2
         ) {
           isResizing = true;
           resizeDirection = 'left';
@@ -207,10 +207,10 @@ module.exports = {
           startWidth = offsetWidth;
           startHeight = offsetHeight;
         } else if (
-          clientX >= offsetLeft + offsetWidth - borderWidth - 3 &&
-          clientX <= offsetLeft + offsetWidth + 3 &&
-          clientY >= offsetTop - 3 &&
-          clientY <= offsetTop + offsetHeight + 3
+          clientX >= offsetLeft + offsetWidth - borderWidth - 2 &&
+          clientX <= offsetLeft + offsetWidth + 2 &&
+          clientY >= offsetTop - 2 &&
+          clientY <= offsetTop + offsetHeight + 2
         ) {
           isResizing = true;
           resizeDirection = 'right';
@@ -219,10 +219,10 @@ module.exports = {
           startWidth = offsetWidth;
           startHeight = offsetHeight;
         } else if (
-          clientX >= offsetLeft - 3 &&
-          clientX <= offsetLeft + offsetWidth + 3 &&
-          clientY >= offsetTop - 3 &&
-          clientY <= offsetTop + borderWidth + 3
+          clientX >= offsetLeft - 2 &&
+          clientX <= offsetLeft + offsetWidth + 2 &&
+          clientY >= offsetTop - 2 &&
+          clientY <= offsetTop + borderWidth + 2
         ) {
           isResizing = true;
           resizeDirection = 'top';
@@ -231,10 +231,10 @@ module.exports = {
           startWidth = offsetWidth;
           startHeight = offsetHeight;
         } else if (
-          clientX >= offsetLeft - 3 &&
-          clientX <= offsetLeft + offsetWidth + 3 &&
-          clientY >= offsetTop + offsetHeight - borderWidth - 3 &&
-          clientY <= offsetTop + offsetHeight + 3
+          clientX >= offsetLeft - 2 &&
+          clientX <= offsetLeft + offsetWidth + 2 &&
+          clientY >= offsetTop + offsetHeight - borderWidth - 2 &&
+          clientY <= offsetTop + offsetHeight + 2
         ) {
           isResizing = true;
           resizeDirection = 'bottom';
@@ -243,10 +243,10 @@ module.exports = {
           startWidth = offsetWidth;
           startHeight = offsetHeight;
         } else if (
-          clientX >= offsetLeft - 3 &&
-          clientX <= offsetLeft + borderWidth + 3 &&
-          clientY >= offsetTop - 3 &&
-          clientY <= offsetTop + borderWidth + 3
+          clientX >= offsetLeft - 2 &&
+          clientX <= offsetLeft + borderWidth + 2 &&
+          clientY >= offsetTop - 2 &&
+          clientY <= offsetTop + borderWidth + 2
         ) {
           isResizing = true;
           resizeDirection = 'top-left';
@@ -255,10 +255,10 @@ module.exports = {
           startWidth = offsetWidth;
           startHeight = offsetHeight;
         } else if (
-          clientX >= offsetLeft + offsetWidth - borderWidth - 3 &&
-          clientX <= offsetLeft + offsetWidth + 3 &&
-          clientY >= offsetTop - 3 &&
-          clientY <= offsetTop + borderWidth + 3
+          clientX >= offsetLeft + offsetWidth - borderWidth - 2 &&
+          clientX <= offsetLeft + offsetWidth + 2 &&
+          clientY >= offsetTop - 2 &&
+          clientY <= offsetTop + borderWidth + 2
         ) {
           isResizing = true;
           resizeDirection = 'top-right';
@@ -267,10 +267,10 @@ module.exports = {
           startWidth = offsetWidth;
           startHeight = offsetHeight;
         } else if (
-          clientX >= offsetLeft - 3 &&
-          clientX <= offsetLeft + borderWidth + 3 &&
-          clientY >= offsetTop + offsetHeight - borderWidth - 3 &&
-          clientY <= offsetTop + offsetHeight + 3
+          clientX >= offsetLeft - 2 &&
+          clientX <= offsetLeft + borderWidth + 2 &&
+          clientY >= offsetTop + offsetHeight - borderWidth - 2 &&
+          clientY <= offsetTop + offsetHeight + 2
         ) {
           isResizing = true;
           resizeDirection = 'bottom-left';
@@ -279,10 +279,10 @@ module.exports = {
           startWidth = offsetWidth;
           startHeight = offsetHeight;
         } else if (
-          clientX >= offsetLeft + offsetWidth - borderWidth - 3 &&
-          clientX <= offsetLeft + offsetWidth + 3 &&
-          clientY >= offsetTop + offsetHeight - borderWidth - 3 &&
-          clientY <= offsetTop + offsetHeight + 3
+          clientX >= offsetLeft + offsetWidth - borderWidth - 2 &&
+          clientX <= offsetLeft + offsetWidth + 2 &&
+          clientY >= offsetTop + offsetHeight - borderWidth - 2 &&
+          clientY <= offsetTop + offsetHeight + 2
         ) {
           isResizing = true;
           resizeDirection = 'bottom-right';
@@ -299,7 +299,7 @@ module.exports = {
         const { clientX, clientY } = e;
         const deltaX = clientX - startX;
         const deltaY = clientY - startY;
-
+    
         if (resizeDirection.includes('left')) {
           const newWidth = startWidth - deltaX;
           box.style.width = `${newWidth}px`;
@@ -308,7 +308,7 @@ module.exports = {
           const newWidth = startWidth + deltaX;
           box.style.width = `${newWidth}px`;
         }
-
+    
         if (resizeDirection.includes('top')) {
           const newHeight = startHeight - deltaY;
           box.style.height = `${newHeight}px`;
@@ -320,33 +320,33 @@ module.exports = {
       } else {
         const { clientX, clientY } = e;
         const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = box;
-
+    
         if (
-          clientX >= offsetLeft &&
-          clientX <= offsetLeft + borderWidth &&
-          clientY >= offsetTop &&
-          clientY <= offsetTop + offsetHeight
+          clientX >= offsetLeft - 2 &&
+          clientX <= offsetLeft + borderWidth + 2 &&
+          clientY >= offsetTop - 2 &&
+          clientY <= offsetTop + offsetHeight + 2
         ) {
           setResizeCursor('left');
         } else if (
-          clientX >= offsetLeft + offsetWidth - borderWidth &&
-          clientX <= offsetLeft + offsetWidth &&
-          clientY >= offsetTop &&
-          clientY <= offsetTop + offsetHeight
+          clientX >= offsetLeft + offsetWidth - borderWidth - 2 &&
+          clientX <= offsetLeft + offsetWidth + 2 &&
+          clientY >= offsetTop - 2 &&
+          clientY <= offsetTop + offsetHeight + 2
         ) {
           setResizeCursor('right');
         } else if (
-          clientX >= offsetLeft &&
-          clientX <= offsetLeft + offsetWidth &&
-          clientY >= offsetTop &&
-          clientY <= offsetTop + borderWidth
+          clientX >= offsetLeft - 2 &&
+          clientX <= offsetLeft + offsetWidth + 2 &&
+          clientY >= offsetTop - 2 &&
+          clientY <= offsetTop + borderWidth + 2
         ) {
           setResizeCursor('top');
         } else if (
-          clientX >= offsetLeft &&
-          clientX <= offsetLeft + offsetWidth &&
-          clientY >= offsetTop + offsetHeight - borderWidth &&
-          clientY <= offsetTop + offsetHeight
+          clientX >= offsetLeft - 2 &&
+          clientX <= offsetLeft + offsetWidth + 2 &&
+          clientY >= offsetTop + offsetHeight - borderWidth - 2 &&
+          clientY <= offsetTop + offsetHeight + 2
         ) {
           setResizeCursor('bottom');
         } else {
