@@ -115,10 +115,10 @@ module.exports = {
 
     const borderWidth = 1; // 1 pixel border width
     const borderColor = 'white';
-
     restore_maximize.addEventListener('click', () => {
       if (restore_maximize.innerText == '🗗') {
         restore_maximize.innerText = '🗖';
+        box.style.transition = 'all 0.3s ease-in-out';
         box.style.width = old_size.width;
         box.style.height = old_size.height;
         box.style.left = `${old_pos.x}px`;
@@ -127,18 +127,21 @@ module.exports = {
         box.style.border = `${borderWidth}px solid ${borderColor}`;
       } else {
         restore_maximize.innerText = '🗗';
-        old_size.width = box.style.width;
-        old_size.height = box.style.height;
+        box.style.transition = 'all 0.3s ease-in-out';
         box.style.width = '100vw';
         box.style.height = `calc(100vh - 55px)`;
-        old_pos.x = box.offsetLeft;
-        old_pos.y = box.offsetTop;
         box.style.left = '0';
         box.style.top = '0';
         restored = false;
         box.style.border = 'none';
+    
+        // Reset transition after animation completes
+        setTimeout(() => {
+          box.style.transition = 'none';
+        }, 300);
       }
     });
+    
     let isDragging = false;
     let isResizing = false;
     let dragOffsetX = 0;
