@@ -108,6 +108,9 @@ module.exports = {
       y: 0
     };
 
+    const borderWidth = 1; // 1 pixel border width
+    const borderColor = 'white';
+
     restore_maximize.addEventListener('click', () => {
       if (restore_maximize.innerText == '🗗') {
         restore_maximize.innerText = '🗖';
@@ -116,6 +119,7 @@ module.exports = {
         box.style.left = `${old_pos.x}px`;
         box.style.top = `${old_pos.y}px`;
         restored = true;
+        box.style.border = `${borderWidth}px solid ${borderColor}`;
       } else {
         restore_maximize.innerText = '🗗';
         box.style.width = '100vw';
@@ -125,14 +129,16 @@ module.exports = {
         box.style.left = '0';
         box.style.top = '0';
         restored = false;
+        box.style.border = 'none';
       }
     });
     let isDragging = false;
+    let isResizing = false;
     let dragOffsetX = 0;
     let dragOffsetY = 0;
     
     box.addEventListener('mousedown', (e) => {
-      if (!restored) return;
+      if (!restored && !isResizing) return;
       if (e.clientY <= box.offsetTop + 30) {
         isDragging = true;
         dragOffsetX = e.clientX - box.offsetLeft;
@@ -155,33 +161,11 @@ module.exports = {
 
     box.appendChild(restore_maximize);
 
-    let isResizing = false;
     let resizeDirection = '';
     let startX = 0;
     let startY = 0;
     let startWidth = 0;
     let startHeight = 0;
-
-    const borderWidth = 1; // 1 pixel border width
-    const borderColor = 'white';
-
-    const restoredProxy = new Proxy({ value: restored }, {
-      set(target, prop, value) {
-        target[prop] = value;
-        updateBorderStyle();
-        return true;
-      }
-    });
-    
-    function updateBorderStyle() {
-      if (restoredProxy.value) {
-        box.style.border = `${borderWidth}px solid ${borderColor}`;
-      } else {
-        box.style.border = 'none';
-      }
-    }
-    
-    restoredProxy.value = true; 
 
     function setResizeCursor(direction) {
       let cursor = '';
@@ -199,7 +183,7 @@ module.exports = {
     }
 
     document.addEventListener('mousedown', (e) => {
-      if (restored && !isDragging) {
+      if (restored) {
         const { clientX, clientY } = e;
         const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = box;
 
