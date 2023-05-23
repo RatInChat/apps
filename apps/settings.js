@@ -154,66 +154,100 @@ module.exports = {
     });
 
     box.appendChild(restore_maximize);
-    
-    // Resize feature
-    const resizeBorders = ['top', 'right', 'bottom', 'left'];
 
-    resizeBorders.forEach((border) => {
-      const resizeHandle = document.createElement('div');
-      resizeHandle.className = `resize-handle-${border}`;
-      resizeHandle.style.cssText = `
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        background-color: #000;
-        opacity: 0.5;
-        pointer-events: auto;
-        cursor: ${border}-resize;
-        ${border}: -0.5px;
-      `;
-
-      box.appendChild(resizeHandle);
-    });
-
-    const handleHoverStyles = {
-      top: 'cursor: n-resize;',
-      right: 'cursor: e-resize;',
-      bottom: 'cursor: s-resize;',
-      left: 'cursor: w-resize;',
-    };
-
-    resizeBorders.forEach((border) => {
-      const handle = box.querySelector(`.resize-handle-${border}`);
-      
-      handle.addEventListener('mouseenter', () => {
-        box.style.cssText += handleHoverStyles[border];
-      });
-
-      handle.addEventListener('mouseleave', () => {
-        box.style.cursor = 'default';
-      });
-    });
-
-    // Resize functionality
     let isResizing = false;
     let resizeDirection = '';
+    let startX = 0;
+    let startY = 0;
+    let startWidth = 0;
+    let startHeight = 0;
 
-    resizeBorders.forEach((border) => {
-      const handle = box.querySelector(`.resize-handle-${border}`);
-      
-      handle.addEventListener('mousedown', (e) => {
-        isResizing = true;
-        resizeDirection = border;
-      });
+    document.addEventListener('mousedown', (e) => {
+      if (restored) {
+        const { clientX, clientY } = e;
+        const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = box;
+
+        if (
+          clientX >= offsetLeft - 0.5 &&
+          clientX <= offsetLeft + 0.5 &&
+          clientY >= offsetTop - 0.5 &&
+          clientY <= offsetTop + 0.5
+        ) {
+          isResizing = true;
+          resizeDirection = 'top-left';
+          startX = clientX;
+          startY = clientY;
+          startWidth = offsetWidth;
+          startHeight = offsetHeight;
+        } else if (
+          clientX >= offsetLeft + offsetWidth - 0.5 &&
+          clientX <= offsetLeft + offsetWidth + 0.5 &&
+          clientY >= offsetTop - 0.5 &&
+          clientY <= offsetTop + 0.5
+        ) {
+          isResizing = true;
+          resizeDirection = 'top-right';
+          startX = clientX;
+          startY = clientY;
+          startWidth = offsetWidth;
+          startHeight = offsetHeight;
+        } else if (
+          clientX >= offsetLeft - 0.5 &&
+          clientX <= offsetLeft + 0.5 &&
+          clientY >= offsetTop + offsetHeight - 0.5 &&
+          clientY <= offsetTop + offsetHeight + 0.5
+        ) {
+          isResizing = true;
+          resizeDirection = 'bottom-left';
+          startX = clientX;
+          startY = clientY;
+          startWidth = offsetWidth;
+          startHeight = offsetHeight;
+        } else if (
+          clientX >= offsetLeft + offsetWidth - 0.5 &&
+          clientX <= offsetLeft + offsetWidth + 0.5 &&
+          clientY >= offsetTop + offsetHeight - 0.5 &&
+          clientY <= offsetTop + offsetHeight + 0.5
+        ) {
+          isResizing = true;
+          resizeDirection = 'bottom-right';
+          startX = clientX;
+          startY = clientY;
+          startWidth = offsetWidth;
+          startHeight = offsetHeight;
+        }
+      }
     });
 
     document.addEventListener('mousemove', (e) => {
       if (isResizing) {
-        if (resizeDirection === 'right') {
-          const newWidth = e.clientX - box.offsetLeft;
+        const { clientX, clientY } = e;
+        const deltaX = clientX - startX;
+        const deltaY = clientY - startY;
+
+        if (resizeDirection === 'top-left') {
+          const newWidth = startWidth - deltaX;
+          const newHeight = startHeight - deltaY;
           box.style.width = `${newWidth}px`;
-        } else if (resizeDirection === 'bottom') {
-          const newHeight = e.clientY - box.offsetTop;
+          box.style.height = `${newHeight}px`;
+          box.style.top = `${startY + deltaY}px`;
+          box.style.left = `${startX + deltaX}px`;
+        } else if (resizeDirection === 'top-right') {
+          const newWidth = startWidth + deltaX;
+          const newHeight = startHeight - deltaY;
+          box.style.width = `${newWidth}px`;
+          box.style.height = `${newHeight}px`;
+          box.style.top = `${startY + deltaY}px`;
+        } else if (resizeDirection === 'bottom-left') {
+          const newWidth = startWidth - deltaX;
+          const newHeight = startHeight + deltaY;
+          box.style.width = `${newWidth}px`;
+          box.style.height = `${newHeight}px`;
+          box.style.left = `${startX + deltaX}px`;
+        } else if (resizeDirection === 'bottom-right') {
+          const newWidth = startWidth + deltaX;
+          const newHeight = startHeight + deltaY;
+          box.style.width = `${newWidth}px`;
           box.style.height = `${newHeight}px`;
         }
       }
