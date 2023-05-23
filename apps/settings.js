@@ -108,20 +108,27 @@ module.exports = {
       y: 0
     };
 
+    let old_size = {
+      width: `50vw`,
+      height: `calc(50vh - 55px)`
+    };
+
     const borderWidth = 1; // 1 pixel border width
     const borderColor = 'white';
 
     restore_maximize.addEventListener('click', () => {
       if (restore_maximize.innerText == '🗗') {
         restore_maximize.innerText = '🗖';
-        box.style.width = '50vw';
-        box.style.height = `calc(50vh - 55px)`;
+        box.style.width = old_size.width;
+        box.style.height = old_size.height;
         box.style.left = `${old_pos.x}px`;
         box.style.top = `${old_pos.y}px`;
         restored = true;
         box.style.border = `${borderWidth}px solid ${borderColor}`;
       } else {
         restore_maximize.innerText = '🗗';
+        old_size.width = box.style.width;
+        old_size.height = box.style.height;
         box.style.width = '100vw';
         box.style.height = `calc(100vh - 55px)`;
         old_pos.x = box.offsetLeft;
@@ -147,7 +154,7 @@ module.exports = {
     });
     
     document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
+      if (isDragging && !isResizing) {
         const newX = e.clientX - dragOffsetX;
         const newY = e.clientY - dragOffsetY;
         box.style.left = `${newX}px`;
