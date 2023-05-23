@@ -162,11 +162,29 @@ module.exports = {
     let startWidth = 0;
     let startHeight = 0;
 
+    const borderWidth = 1; // 1 pixel border width
+    const borderColor = 'white';
+
+    box.style.border = `${borderWidth}px solid ${borderColor}`;
+
+    function setResizeCursor(direction) {
+      let cursor = '';
+      if (direction === 'left' || direction === 'right') {
+        cursor = 'ew-resize';
+      } else if (direction === 'top' || direction === 'bottom') {
+        cursor = 'ns-resize';
+      } else if (direction === 'top-left' || direction === 'bottom-right') {
+        cursor = 'nwse-resize';
+      } else if (direction === 'top-right' || direction === 'bottom-left') {
+        cursor = 'nesw-resize';
+      }
+      box.style.cursor = cursor;
+    }
+
     document.addEventListener('mousedown', (e) => {
       if (restored) {
         const { clientX, clientY } = e;
         const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = box;
-        const borderWidth = 1; // 1 pixel border width
 
         if (
           clientX >= offsetLeft &&
@@ -216,6 +234,54 @@ module.exports = {
           startY = clientY;
           startWidth = offsetWidth;
           startHeight = offsetHeight;
+        } else if (
+          clientX >= offsetLeft &&
+          clientX <= offsetLeft + borderWidth &&
+          clientY >= offsetTop &&
+          clientY <= offsetTop + borderWidth
+        ) {
+          isResizing = true;
+          resizeDirection = 'top-left';
+          startX = clientX;
+          startY = clientY;
+          startWidth = offsetWidth;
+          startHeight = offsetHeight;
+        } else if (
+          clientX >= offsetLeft + offsetWidth - borderWidth &&
+          clientX <= offsetLeft + offsetWidth &&
+          clientY >= offsetTop &&
+          clientY <= offsetTop + borderWidth
+        ) {
+          isResizing = true;
+          resizeDirection = 'top-right';
+          startX = clientX;
+          startY = clientY;
+          startWidth = offsetWidth;
+          startHeight = offsetHeight;
+        } else if (
+          clientX >= offsetLeft &&
+          clientX <= offsetLeft + borderWidth &&
+          clientY >= offsetTop + offsetHeight - borderWidth &&
+          clientY <= offsetTop + offsetHeight
+        ) {
+          isResizing = true;
+          resizeDirection = 'bottom-left';
+          startX = clientX;
+          startY = clientY;
+          startWidth = offsetWidth;
+          startHeight = offsetHeight;
+        } else if (
+          clientX >= offsetLeft + offsetWidth - borderWidth &&
+          clientX <= offsetLeft + offsetWidth &&
+          clientY >= offsetTop + offsetHeight - borderWidth &&
+          clientY <= offsetTop + offsetHeight
+        ) {
+          isResizing = true;
+          resizeDirection = 'bottom-right';
+          startX = clientX;
+          startY = clientY;
+          startWidth = offsetWidth;
+          startHeight = offsetHeight;
         }
       }
     });
@@ -226,20 +292,57 @@ module.exports = {
         const deltaX = clientX - startX;
         const deltaY = clientY - startY;
 
-        if (resizeDirection === 'left') {
+        if (resizeDirection.includes('left')) {
           const newWidth = startWidth - deltaX;
           box.style.width = `${newWidth}px`;
           box.style.left = `${startX + deltaX}px`;
-        } else if (resizeDirection === 'right') {
+        } else if (resizeDirection.includes('right')) {
           const newWidth = startWidth + deltaX;
           box.style.width = `${newWidth}px`;
-        } else if (resizeDirection === 'top') {
+        }
+
+        if (resizeDirection.includes('top')) {
           const newHeight = startHeight - deltaY;
           box.style.height = `${newHeight}px`;
           box.style.top = `${startY + deltaY}px`;
-        } else if (resizeDirection === 'bottom') {
+        } else if (resizeDirection.includes('bottom')) {
           const newHeight = startHeight + deltaY;
           box.style.height = `${newHeight}px`;
+        }
+      } else {
+        const { clientX, clientY } = e;
+        const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = box;
+
+        if (
+          clientX >= offsetLeft &&
+          clientX <= offsetLeft + borderWidth &&
+          clientY >= offsetTop &&
+          clientY <= offsetTop + offsetHeight
+        ) {
+          setResizeCursor('left');
+        } else if (
+          clientX >= offsetLeft + offsetWidth - borderWidth &&
+          clientX <= offsetLeft + offsetWidth &&
+          clientY >= offsetTop &&
+          clientY <= offsetTop + offsetHeight
+        ) {
+          setResizeCursor('right');
+        } else if (
+          clientX >= offsetLeft &&
+          clientX <= offsetLeft + offsetWidth &&
+          clientY >= offsetTop &&
+          clientY <= offsetTop + borderWidth
+        ) {
+          setResizeCursor('top');
+        } else if (
+          clientX >= offsetLeft &&
+          clientX <= offsetLeft + offsetWidth &&
+          clientY >= offsetTop + offsetHeight - borderWidth &&
+          clientY <= offsetTop + offsetHeight
+        ) {
+          setResizeCursor('bottom');
+        } else {
+          box.style.cursor = 'default';
         }
       }
     });
