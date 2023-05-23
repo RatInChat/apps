@@ -166,51 +166,52 @@ module.exports = {
       if (restored) {
         const { clientX, clientY } = e;
         const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = box;
+        const borderWidth = 1; // 1 pixel border width
 
         if (
-          clientX >= offsetLeft - 0.5 &&
-          clientX <= offsetLeft + 0.5 &&
-          clientY >= offsetTop - 0.5 &&
-          clientY <= offsetTop + 0.5
+          clientX >= offsetLeft &&
+          clientX <= offsetLeft + borderWidth &&
+          clientY >= offsetTop &&
+          clientY <= offsetTop + offsetHeight
         ) {
           isResizing = true;
-          resizeDirection = 'top-left';
+          resizeDirection = 'left';
           startX = clientX;
           startY = clientY;
           startWidth = offsetWidth;
           startHeight = offsetHeight;
         } else if (
-          clientX >= offsetLeft + offsetWidth - 0.5 &&
-          clientX <= offsetLeft + offsetWidth + 0.5 &&
-          clientY >= offsetTop - 0.5 &&
-          clientY <= offsetTop + 0.5
+          clientX >= offsetLeft + offsetWidth - borderWidth &&
+          clientX <= offsetLeft + offsetWidth &&
+          clientY >= offsetTop &&
+          clientY <= offsetTop + offsetHeight
         ) {
           isResizing = true;
-          resizeDirection = 'top-right';
+          resizeDirection = 'right';
           startX = clientX;
           startY = clientY;
           startWidth = offsetWidth;
           startHeight = offsetHeight;
         } else if (
-          clientX >= offsetLeft - 0.5 &&
-          clientX <= offsetLeft + 0.5 &&
-          clientY >= offsetTop + offsetHeight - 0.5 &&
-          clientY <= offsetTop + offsetHeight + 0.5
+          clientX >= offsetLeft &&
+          clientX <= offsetLeft + offsetWidth &&
+          clientY >= offsetTop &&
+          clientY <= offsetTop + borderWidth
         ) {
           isResizing = true;
-          resizeDirection = 'bottom-left';
+          resizeDirection = 'top';
           startX = clientX;
           startY = clientY;
           startWidth = offsetWidth;
           startHeight = offsetHeight;
         } else if (
-          clientX >= offsetLeft + offsetWidth - 0.5 &&
-          clientX <= offsetLeft + offsetWidth + 0.5 &&
-          clientY >= offsetTop + offsetHeight - 0.5 &&
-          clientY <= offsetTop + offsetHeight + 0.5
+          clientX >= offsetLeft &&
+          clientX <= offsetLeft + offsetWidth &&
+          clientY >= offsetTop + offsetHeight - borderWidth &&
+          clientY <= offsetTop + offsetHeight
         ) {
           isResizing = true;
-          resizeDirection = 'bottom-right';
+          resizeDirection = 'bottom';
           startX = clientX;
           startY = clientY;
           startWidth = offsetWidth;
@@ -225,29 +226,19 @@ module.exports = {
         const deltaX = clientX - startX;
         const deltaY = clientY - startY;
 
-        if (resizeDirection === 'top-left') {
+        if (resizeDirection === 'left') {
           const newWidth = startWidth - deltaX;
-          const newHeight = startHeight - deltaY;
           box.style.width = `${newWidth}px`;
+          box.style.left = `${startX + deltaX}px`;
+        } else if (resizeDirection === 'right') {
+          const newWidth = startWidth + deltaX;
+          box.style.width = `${newWidth}px`;
+        } else if (resizeDirection === 'top') {
+          const newHeight = startHeight - deltaY;
           box.style.height = `${newHeight}px`;
           box.style.top = `${startY + deltaY}px`;
-          box.style.left = `${startX + deltaX}px`;
-        } else if (resizeDirection === 'top-right') {
-          const newWidth = startWidth + deltaX;
-          const newHeight = startHeight - deltaY;
-          box.style.width = `${newWidth}px`;
-          box.style.height = `${newHeight}px`;
-          box.style.top = `${startY + deltaY}px`;
-        } else if (resizeDirection === 'bottom-left') {
-          const newWidth = startWidth - deltaX;
+        } else if (resizeDirection === 'bottom') {
           const newHeight = startHeight + deltaY;
-          box.style.width = `${newWidth}px`;
-          box.style.height = `${newHeight}px`;
-          box.style.left = `${startX + deltaX}px`;
-        } else if (resizeDirection === 'bottom-right') {
-          const newWidth = startWidth + deltaX;
-          const newHeight = startHeight + deltaY;
-          box.style.width = `${newWidth}px`;
           box.style.height = `${newHeight}px`;
         }
       }
@@ -256,7 +247,7 @@ module.exports = {
     document.addEventListener('mouseup', () => {
       isResizing = false;
     });
-
+    
     const minimize = document.createElement('button');
     minimize.innerText = '🗕';
     minimize.style = `
