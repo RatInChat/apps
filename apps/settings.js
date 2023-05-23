@@ -165,17 +165,23 @@ module.exports = {
     const borderWidth = 1; // 1 pixel border width
     const borderColor = 'white';
 
+    const restoredProxy = new Proxy({ value: restored }, {
+      set(target, prop, value) {
+        target[prop] = value;
+        updateBorderStyle();
+        return true;
+      }
+    });
+    
     function updateBorderStyle() {
-      if (restored) {
+      if (restoredProxy.value) {
         box.style.border = `${borderWidth}px solid ${borderColor}`;
       } else {
         box.style.border = 'none';
       }
     }
-
-    restored.addEventListener('change', updateBorderStyle);
-
-    updateBorderStyle();
+    
+    restoredProxy.value = true; 
 
     function setResizeCursor(direction) {
       let cursor = '';
