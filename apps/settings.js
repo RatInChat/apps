@@ -154,6 +154,74 @@ module.exports = {
     });
 
     box.appendChild(restore_maximize);
+    
+    // Resize feature
+    const resizeBorders = ['top', 'right', 'bottom', 'left'];
+
+    resizeBorders.forEach((border) => {
+      const resizeHandle = document.createElement('div');
+      resizeHandle.className = `resize-handle-${border}`;
+      resizeHandle.style.cssText = `
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background-color: #000;
+        opacity: 0.5;
+        pointer-events: auto;
+        cursor: ${border}-resize;
+        ${border}: -0.5px;
+      `;
+
+      box.appendChild(resizeHandle);
+    });
+
+    const handleHoverStyles = {
+      top: 'cursor: n-resize;',
+      right: 'cursor: e-resize;',
+      bottom: 'cursor: s-resize;',
+      left: 'cursor: w-resize;',
+    };
+
+    resizeBorders.forEach((border) => {
+      const handle = box.querySelector(`.resize-handle-${border}`);
+      
+      handle.addEventListener('mouseenter', () => {
+        box.style.cssText += handleHoverStyles[border];
+      });
+
+      handle.addEventListener('mouseleave', () => {
+        box.style.cursor = 'default';
+      });
+    });
+
+    // Resize functionality
+    let isResizing = false;
+    let resizeDirection = '';
+
+    resizeBorders.forEach((border) => {
+      const handle = box.querySelector(`.resize-handle-${border}`);
+      
+      handle.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        resizeDirection = border;
+      });
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isResizing) {
+        if (resizeDirection === 'right') {
+          const newWidth = e.clientX - box.offsetLeft;
+          box.style.width = `${newWidth}px`;
+        } else if (resizeDirection === 'bottom') {
+          const newHeight = e.clientY - box.offsetTop;
+          box.style.height = `${newHeight}px`;
+        }
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isResizing = false;
+    });
 
     const minimize = document.createElement('button');
     minimize.innerText = '🗕';
