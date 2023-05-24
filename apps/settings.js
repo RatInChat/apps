@@ -436,7 +436,7 @@ module.exports = {
     });
 
     box.addEventListener('dblclick', (e) => {
-      if (e.clientY <= box.offsetTop + 40) {
+      if (e.clientY <= box.offsetTop + 35) {
         if (restored) {
           restore_maximize.click();
         } else {
