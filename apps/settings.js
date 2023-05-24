@@ -435,11 +435,9 @@ module.exports = {
       , 500);
     });
 
-    // add a double click within 10px of the top of the box to maximize or restore also within 500ms of the last click
-    let lastClick = 0;
     box.addEventListener('dblclick', (e) => {
       console.log('hi');
-      if (e.clientY <= box.offsetTop + 10 && Date.now() - lastClick <= 500) {
+      if (e.clientY <= box.offsetTop + 10) {
         console.log('hi2')
         if (restored) {
           restore_maximize.click();
@@ -447,7 +445,6 @@ module.exports = {
           restore_maximize.click();
         }
       }
-      lastClick = Date.now();
     });
 
     if (page == 'Preferences') {
