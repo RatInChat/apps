@@ -118,7 +118,7 @@ module.exports = {
     restore_maximize.addEventListener('click', () => {
       if (restore_maximize.innerText == '🗗') {
         restore_maximize.innerText = '🗖';
-        box.style.transition = 'all 0.3s ease-in-out';
+        box.style.transition = 'left 0.3s ease-in-out, top 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out';
         box.style.width = old_size.width;
         box.style.height = old_size.height;
         box.style.left = `${old_pos.x}px`;
@@ -127,19 +127,19 @@ module.exports = {
         box.style.border = `${borderWidth}px solid ${borderColor}`;
       } else {
         restore_maximize.innerText = '🗗';
-        box.style.transition = 'all 0.3s ease-in-out';
+        box.style.transition = 'left 0.3s ease-in-out, top 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out';
         box.style.width = '100vw';
         box.style.height = `calc(100vh - 55px)`;
         box.style.left = '0';
         box.style.top = '0';
         restored = false;
         box.style.border = 'none';
-    
-        // Reset transition after animation completes
-        setTimeout(() => {
-          box.style.transition = 'none';
-        }, 300);
       }
+    
+      // Reset transition after animation completes
+      setTimeout(() => {
+        box.style.transition = 'none';
+      }, 300);
     });
     
     let isDragging = false;
