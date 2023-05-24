@@ -434,6 +434,18 @@ module.exports = {
       }
       , 500);
     });
+    
+    let lastClick = 0;
+    box.addEventListener('dblclick', (e) => {
+      if (e.clientY <= box.offsetTop + 10 && Date.now() - lastClick <= 500) {
+        if (restored) {
+          restore_maximize.click();
+        } else {
+          restore_maximize.click();
+        }
+      }
+      lastClick = Date.now();
+    });
 
     if (page == 'Preferences') {
       const content = document.createElement('div');
