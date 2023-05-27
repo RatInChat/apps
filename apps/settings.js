@@ -5,6 +5,7 @@ module.exports = {
     // Create the settings container
     const box = document.createElement('div');
     box.id = 'settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso';
+    box.classList.add('windowdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
     box.style.width = '100vw';
     box.style.height = `calc(100vh - 55px)`;
     box.style.top = '0';
@@ -22,6 +23,66 @@ module.exports = {
     title.innerText = page;
     title.style.color = '#FFFFFF';
     box.appendChild(title);
+
+    const sidebar = document.createElement('div');
+
+    sidebar.style = `
+      height: calc(100vh - 70px);
+      width: 200px;
+      background-color: #202020;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      margin-top: 1px;
+      transition: background-color 0.3s ease-in-out;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    `
+    box.appendChild(sidebar);
+
+    const sidebar_title = document.createElement('h1');
+    sidebar_title.innerText = 'Settings';
+    sidebar_title.style.color = '#FFFFFF';
+    sidebar.appendChild(sidebar_title);
+
+    const sidebar_list = document.createElement('ul');
+    sidebar_list.style.listStyleType = 'none';
+    sidebar_list.style.padding = '0';
+    sidebar_list.style.margin = '0';
+    sidebar.appendChild(sidebar_list);
+
+    const sidebar_list_items = [
+      'General',
+      'Appearance',
+      'Privacy',
+      'Security',
+      'Preferences'
+    ];
+
+    for (let i = 0; i < sidebar_list_items.length; i++) {
+      const item = document.createElement('li');
+      item.innerText = sidebar_list_items[i];
+      item.style.color = '#FFFFFF';
+      item.style.cursor = 'pointer';
+      item.style.padding = '5px';
+      item.style.margin = '5px';
+      item.style.borderRadius = '5px';
+      item.style.transition = 'background-color 0.3s ease-in-out';
+      item.addEventListener('mouseover', () => {
+        item.style.backgroundColor = '#303030';
+      });
+      item.addEventListener('mouseout', () => {
+        item.style.backgroundColor = '#202020';
+      });
+      sidebar_list.appendChild(item);
+    }
 
     const close = document.createElement('button');
     close.innerText = '✕';
@@ -121,6 +182,7 @@ module.exports = {
         box.style.transition = 'left 0.3s ease-in-out, top 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out';
         box.style.width = old_size.width;
         box.style.height = old_size.height;
+        sidebar.style.height = old_size.height - 12;
         box.style.left = `${old_pos.x}px`;
         box.style.top = `${old_pos.y}px`;
         restored = true;
@@ -133,7 +195,8 @@ module.exports = {
         old_size.width = box.style.width;
         old_size.height = box.style.height;
         box.style.width = '100vw';
-        box.style.height = `calc(100vh - 55px)`;
+        box.style.height = `calc(100vh - 70px)`;
+        sidebar.style.height = `calc(100vh - 70px)`;
         box.style.left = '0';
         box.style.top = '0';
         restored = false;
@@ -449,69 +512,21 @@ module.exports = {
       }
     });
 
-    const sidebar = document.createElement('div');
+    // add a different window click, bring to top, mainframe
 
-    sidebar.style = `
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      background-color: #202020 !important;
-      color: #FFFFFF !important;
-      border: none !important;
-      border-radius: 5px !important;
-      padding: 5px !important;
-      margin: 5px !important;
-      width: 200px !important;
-      height: calc(100vh - 62px) !important;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: center !important;
-      align-items: center !important;
-      z-index: 10001 !important;
-      -webkit-touch-callout: none !important;
-      -webkit-user-select: none !important;
-      -khtml-user-select: none !important;
-      -moz-user-select: none !important;
-      -ms-user-select: none !important;
-      user-select: none !important;
-    `
-    box.appendChild(sidebar);
+    mainframe.addEventListener('click', (e) => {
+      // detect what was clicked
+      // if it was a window, bring it to the top
+      // if it was the mainframe, do nothing
+      // if it was the desktop, minimize all windows
 
-    const sidebar_title = document.createElement('h1');
-    sidebar_title.innerText = 'Settings';
-    sidebar_title.style.color = '#FFFFFF';
-    sidebar.appendChild(sidebar_title);
-
-    const sidebar_list = document.createElement('ul');
-    sidebar_list.style.listStyleType = 'none';
-    sidebar_list.style.padding = '0';
-    sidebar_list.style.margin = '0';
-    sidebar.appendChild(sidebar_list);
-
-    const sidebar_list_items = [
-      'General',
-      'Appearance',
-      'Privacy',
-      'Security',
-      'Preferences'
-    ];
-
-    for (let i = 0; i < sidebar_list_items.length; i++) {
-      const item = document.createElement('li');
-      item.innerText = sidebar_list_items[i];
-      item.style.color = '#FFFFFF';
-      item.style.cursor = 'pointer';
-      item.style.padding = '5px';
-      item.style.margin = '5px';
-      item.style.borderRadius = '5px';
-      item.style.transition = 'background-color 0.3s ease-in-out';
-      item.addEventListener('mouseover', () => {
-        item.style.backgroundColor = '#303030';
-      });
-      item.addEventListener('mouseout', () => {
-        item.style.backgroundColor = '#202020';
-      });
-    }
+      if (e.target.id == 'mainframe') {
+        let windows = document.querySelectorAll('.windowdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+        for (let i = 0; i < windows.length; i++) {
+          // click on the minimize button
+        }
+      }
+    });
 
     if (page == 'Preferences') {
       // hi
