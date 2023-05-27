@@ -462,7 +462,7 @@ module.exports = {
       padding: 5px !important;
       margin: 5px !important;
       width: 200px !important;
-      height: calc(100vh - 60px) !important;
+      height: calc(100vh - 62px) !important;
       display: flex !important;
       flex-direction: column !important;
       justify-content: center !important;
