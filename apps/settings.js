@@ -128,6 +128,10 @@ module.exports = {
       } else {
         restore_maximize.innerText = '🗗';
         box.style.transition = 'left 0.3s ease-in-out, top 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out';
+        old_pos.x = box.offsetLeft;
+        old_pos.y = box.offsetTop;
+        old_size.width = box.style.width;
+        old_size.height = box.style.height;
         box.style.width = '100vw';
         box.style.height = `calc(100vh - 55px)`;
         box.style.left = '0';
