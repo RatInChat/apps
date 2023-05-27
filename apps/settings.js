@@ -449,12 +449,72 @@ module.exports = {
       }
     });
 
+    const sidebar = document.createElement('div');
+
+    sidebar.style = `
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      background-color: #202020 !important;
+      color: #FFFFFF !important;
+      border: none !important;
+      border-radius: 5px !important;
+      padding: 5px !important;
+      margin: 5px !important;
+      width: 200px !important;
+      height: calc(100vh - 55px) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+      z-index: 10001 !important;
+      -webkit-touch-callout: none !important;
+      -webkit-user-select: none !important;
+      -khtml-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+    `
+    box.appendChild(sidebar);
+
+    const sidebar_title = document.createElement('h1');
+    sidebar_title.innerText = 'Settings';
+    sidebar_title.style.color = '#FFFFFF';
+    sidebar.appendChild(sidebar_title);
+
+    const sidebar_list = document.createElement('ul');
+    sidebar_list.style.listStyleType = 'none';
+    sidebar_list.style.padding = '0';
+    sidebar_list.style.margin = '0';
+    sidebar.appendChild(sidebar_list);
+
+    const sidebar_list_items = [
+      'General',
+      'Appearance',
+      'Privacy',
+      'Security',
+      'Preferences'
+    ];
+
+    for (let i = 0; i < sidebar_list_items.length; i++) {
+      const item = document.createElement('li');
+      item.innerText = sidebar_list_items[i];
+      item.style.color = '#FFFFFF';
+      item.style.cursor = 'pointer';
+      item.style.padding = '5px';
+      item.style.margin = '5px';
+      item.style.borderRadius = '5px';
+      item.style.transition = 'background-color 0.3s ease-in-out';
+      item.addEventListener('mouseover', () => {
+        item.style.backgroundColor = '#303030';
+      });
+      item.addEventListener('mouseout', () => {
+        item.style.backgroundColor = '#202020';
+      });
+    }
+
     if (page == 'Preferences') {
-      const content = document.createElement('div');
-      content.style.marginTop = '20px';
-      content.innerText = 'Preferences content goes here.';
-      content.style.color = '#FFFFFF';
-      box.appendChild(content);
+      // hi
     }
   }
 };
