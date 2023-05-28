@@ -491,14 +491,14 @@ module.exports = {
     icon.addEventListener('click', () => {
       if (!minimized) return;
       if (box.id !== `settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso${date}`) return;
-      const box = document.getElementById(box.id);
-      box.style.display = 'flex';
-      console.log(box);
-      console.log(box.id);
-      box.classList.add('maximize-animation');
+      const box2 = document.getElementById(box.id);
+      box2.style.display = 'flex';
+      console.log(box2);
+      console.log(box2.id);
+      box2.classList.add('maximize-animation');
       setTimeout(() => {
         icon.classList.add('icon-bounce-animation');
-        box.classList.remove('maximize-animation');
+        box2.classList.remove('maximize-animation');
         setTimeout(() => {
           icon.classList.remove('icon-bounce-animation');
           minimized = false;
