@@ -430,6 +430,7 @@ module.exports = {
     });
     
     const minimize = document.createElement('button');
+    minimize.classList.add('minimizeButtondd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
     minimize.innerText = '🗕';
     minimize.style = `
       position: absolute !important;
@@ -508,22 +509,6 @@ module.exports = {
           restore_maximize.click();
         } else {
           restore_maximize.click();
-        }
-      }
-    });
-
-    // add a different window click, bring to top, mainframe
-
-    mainframe.addEventListener('click', (e) => {
-      // detect what was clicked
-      // if it was a window, bring it to the top
-      // if it was the mainframe, do nothing
-      // if it was the desktop, minimize all windows
-
-      if (e.target.id == 'mainframe') {
-        let windows = document.querySelectorAll('.windowdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
-        for (let i = 0; i < windows.length; i++) {
-          // click on the minimize button
         }
       }
     });
