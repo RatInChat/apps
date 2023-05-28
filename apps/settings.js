@@ -487,13 +487,13 @@ module.exports = {
     box.appendChild(minimize);
 
     const icon = document.querySelector(`img[src="${this.icon}"]`);
-    icon.addEventListener('click', () => {
+    icon.addEventListener('click', (e) => {
       if (!minimized) return;
-      box.style.display = 'flex';
-      box.classList.add('maximize-animation');
+      e.target.style.display = 'flex';
+      e.target.classList.add('maximize-animation');
       setTimeout(() => {
         icon.classList.add('icon-bounce-animation');
-        box.classList.remove('maximize-animation');
+        e.target.classList.remove('maximize-animation');
         setTimeout(() => {
           icon.classList.remove('icon-bounce-animation');
           minimized = false;
