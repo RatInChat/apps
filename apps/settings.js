@@ -493,6 +493,7 @@ module.exports = {
       if (box.id != `settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso${date}`) return;
       box.style.display = 'flex';
       console.log(box)
+      console.log(box.id)
       box.classList.add('maximize-animation');
       setTimeout(() => {
         icon.classList.add('icon-bounce-animation');
