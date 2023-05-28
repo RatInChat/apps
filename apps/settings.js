@@ -488,6 +488,7 @@ module.exports = {
 
     const icon = document.querySelector(`img[src="${this.icon}"]`);
     icon.addEventListener('click', (e) => {
+      console.log(e)
       if (!minimized) return;
       e.target.style.display = 'flex';
       e.target.classList.add('maximize-animation');
