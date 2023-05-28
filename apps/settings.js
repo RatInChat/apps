@@ -490,7 +490,9 @@ module.exports = {
     icon.addEventListener('click', (e) => {
       console.log(e)
       if (!minimized) return;
-      e.target.style.display = 'flex';
+      e.target.style = `
+        display: flex;
+      `
       e.target.classList.add('maximize-animation');
       setTimeout(() => {
         icon.classList.add('icon-bounce-animation');
