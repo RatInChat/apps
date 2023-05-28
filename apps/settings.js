@@ -3,8 +3,9 @@ module.exports = {
   ads: false,
   async execute(mainframe, data, page) {
     // Create the settings container
+    let date = Date.now();
     const box = document.createElement('div');
-    box.id = 'settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso';
+    box.id = `settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso${date}`;
     box.classList.add('windowdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
     box.style.width = '100vw';
     box.style.height = `calc(100vh - 55px)`;
@@ -489,6 +490,7 @@ module.exports = {
     const icon = document.querySelector(`img[src="${this.icon}"]`);
     icon.addEventListener('click', () => {
       if (!minimized) return;
+      if (box.id != `settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso${date}`) return;
       box.style.display = 'flex';
       console.log(box)
       box.classList.add('maximize-animation');
