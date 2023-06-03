@@ -492,8 +492,11 @@ module.exports = {
       if (!minimized) return;
       if (box.id !== `settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso${date}`) return;
       if (box.style.display !== 'none') return;
-
+      const boxbut2 = document.getElementById(box.id);
+      console.log(boxbut2);
+      console.log('hi');
       const box2 = document.getElementById(box.id)[0];
+      console.log(box2);
       box2.style.display = 'flex';
       box2.classList.add('maximize-animation');
       setTimeout(() => {
