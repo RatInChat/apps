@@ -491,10 +491,10 @@ module.exports = {
     icon.addEventListener('click', () => {
       if (!minimized) return;
       if (box.id !== `settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso${date}`) return;
-      const box2 = document.getElementById(box.id);
+      if (box.style.display !== 'none') return;
+
+      const box2 = document.getElementById(box.id)[0];
       box2.style.display = 'flex';
-      console.log(box2);
-      console.log(box2.id);
       box2.classList.add('maximize-animation');
       setTimeout(() => {
         icon.classList.add('icon-bounce-animation');
