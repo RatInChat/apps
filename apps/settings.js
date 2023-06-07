@@ -9,13 +9,15 @@
           async execute(mainframe, data, page) {
 
                     let date = Date.now();
+                    const rect = mainframe.getBoundingClientRect();
+                    const topOffset = rect.top + window.scrollY;
                     const box = document.createElement('div');
                     box.id = `${this.app_name ? this.app_name : 'app'}dd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso${date}`;
                     box.classList.add('windowdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
                     box.style = `
                         width: 100vw;
                         height: calc(100vh - 55px);
-                        top: ${mainframe.offsetTop}px;
+                        top: ${topOffset}px;
                         position: fixed;
                         background-color: #101010;
                         border-radius: 5px;
@@ -458,6 +460,3 @@
           }
 
           }
-
-      
-    
