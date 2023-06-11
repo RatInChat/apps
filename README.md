@@ -1,2 +1,2 @@
 # apps
-This is where all apps for PiplupGUI are stored
+This is where all apps for PiplupOS are stored
