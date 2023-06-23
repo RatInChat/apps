@@ -460,7 +460,9 @@
                     if (page === 'prefrences') {
                       const prefrences = document.createElement('div');
                       const nav_bar = document.createElement('div');
-
+                      box.appendChild(prefrences);
+                      box.appendChild(nav_bar);
+                      
                       nav_bar.style = `
                       position: absolute !important;
                       top: 0 !important;
