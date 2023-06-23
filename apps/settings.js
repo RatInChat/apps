@@ -457,7 +457,7 @@
                       }, 500);
                     });
                     // check what page
-                    if (page === 'prefrences') {
+                    if (page === 'Preferences') {
                       const prefrences = document.createElement('div');
                       const nav_bar = document.createElement('div');
                       const nav_bar_title = document.createElement('div');
