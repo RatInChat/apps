@@ -460,62 +460,92 @@
                     if (page === 'prefrences') {
                       const prefrences = document.createElement('div');
                       const nav_bar = document.createElement('div');
+                      const nav_bar_title = document.createElement('div');
+                      const nav_bar_items = [
+                        {
+                          name: 'General',
+                          id: 'general',
+                          icon: '',
+                        },
+                        {
+                          name: 'Prefrences',
+                          id: 'prefrences',
+                          icon: '',
+                        },
+                        {
+                          name: 'Advanced',
+                          id: 'advanced',
+                          icon: '',
+                        },
+                      ];
+
+                      nav_bar_title.innerText = 'Settings';
+                      nav_bar_title.style = `
+                        font-size: 20px;
+                        font-weight: bold;
+                        color: #FFFFFF;
+                        margin: 10px;
+                        margin-left: 20px;
+                        margin-right: 20px;
+                        text-align: center;
+                        line-height: 1;
+                        flex: 1;
+                        `;
+                      nav_bar_title.classList.add('nav-bar-titledd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                      nav_bar.appendChild(nav_bar_title);
+                      nav_bar.style = `
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: #101010;
+                        height: 40px;
+                        width: 100%;
+                        border-bottom: 1px solid #FFFFFF;
+                        `;
+                      nav_bar.classList.add('nav-bardd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                      prefrences.style = `
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: #101010;
+                        height: 100%;
+                        width: 100%;
+                        `;
+
+                      for (let i = 0; i < nav_bar_items.length; i++) {
+                        const item = document.createElement('div');
+                        item.innerText = nav_bar_items[i].name;
+                        item.style = `
+                          font-size: 20px;
+                          font-weight: bold;
+                          color: #FFFFFF;
+                          margin: 10px;
+                          margin-left: 20px;
+                          margin-right: 20px;
+                          text-align: center;
+                          line-height: 1;
+                          flex: 1;
+                          `;
+                        item.classList.add('nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                        item.addEventListener('click', () => {
+                          const items = document.querySelectorAll('.nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                          for (let i = 0; i < items.length; i++) {
+                            items[i].style.backgroundColor = 'transparent';
+                          }
+                          item.style.backgroundColor = 'gray';
+                          const settings = document.querySelectorAll('.settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                          for (let i = 0; i < settings.length; i++) {
+                            settings[i].style.display = 'none';
+                          }
+                          const setting = document.getElementById(`settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso_${nav_bar_items[i].id}`);
+                          setting.style.display = 'flex';
+                        });
+                        nav_bar.appendChild(item);
+                      }
+                      
                       box.appendChild(prefrences);
                       box.appendChild(nav_bar);
-                      
-                      nav_bar.style = `
-                      position: absolute !important;
-                      top: 0 !important;
-                      left: 0 !important;
-                      background-color: #101010 !important;
-                      color: #FFFFFF !important;
-                      border: none !important;
-                      border-radius: 5px !important;
-                      padding: 5px !important;
-                      margin: 5px !important;
-                      height:  !important;
-                      width: 100% !important;
-                      display: flex !important;
-                      justify-content: center !important;
-                      align-items: center !important;
-                      font-size: 18px !important;
-                      font-weight: bold !important;
-                      line-height: 1 !important;
-                      z-index: 10001 !important;
-                      -webkit-touch-callout: none !important;
-                      -webkit-user-select: none !important;
-                      -khtml-user-select: none !important;
-                      -moz-user-select: none !important;
-                      -ms-user-select: none !important;
-                      user-select: none !important;
-                      `;
-                      nav_bar.innerText = 'Prefrences';
-                      prefrences.style = `
-                      position: absolute !important;
-                      top: 0 !important;
-                      left: 0 !important;
-                      background-color: #101010 !important;
-                      color: #FFFFFF !important;
-                      border: none !important;
-                      border-radius: 5px !important;
-                      padding: 5px !important;
-                      margin: 5px !important;
-                      height:  !important;
-                      width: 100% !important;
-                      display: flex !important;
-                      justify-content: center !important;
-                      align-items: center !important;
-                      font-size: 18px !important;
-                      font-weight: bold !important;
-                      line-height: 1 !important;
-                      z-index: 10001 !important;
-                      -webkit-touch-callout: none !important;
-                      -webkit-user-select: none !important;
-                      -khtml-user-select: none !important;
-                      -moz-user-select: none !important;
-                      -ms-user-select: none !important;
-                      user-select: none !important;
-                      `;
                   }
             }
          }
