@@ -505,11 +505,12 @@
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
-                        background-color: #FFFFFF;
+                        background-color: #101010;
                         height: 100%;
                         width: calc(100% - 200px);
                         border-radius: 5px;
                         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+                        order: -1; /* Positions preferences at the beginning of the parent container */
                       `;
                     
                       for (let i = 0; i < navBarItems.length; i++) {
@@ -518,7 +519,7 @@
                         item.style = `
                           font-size: 18px;
                           font-weight: bold;
-                          color: #333333;
+                          color: #FFFFFF;
                           margin: 10px;
                           padding: 10px;
                           text-align: center;
@@ -528,8 +529,8 @@
                         item.addEventListener('click', () => {
                           const items = document.querySelectorAll('.nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
                           for (let i = 0; i < items.length; i++) {
-                            items[i].style.backgroundColor = '#FFFFFF';
-                            items[i].style.color = '#333333';
+                            items[i].style.backgroundColor = '#333333';
+                            items[i].style.color = '#FFFFFF';
                           }
                           item.style.backgroundColor = '#555555';
                           item.style.color = '#FFFFFF';
@@ -544,7 +545,7 @@
                       }
                       
                       preferences.appendChild(navBar);
-                      box.appendChild(preferences);
+                      box.insertBefore(preferences, box.firstChild); // Insert preferences at the beginning of the parent container
                     
                       // Set "Preferences" as the default selected option
                       const defaultItem = document.querySelector('.nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso:nth-child(2)');
@@ -556,6 +557,10 @@
                           defaultSetting.style.display = 'flex';
                         }
                       }
+                    
+                      // Add dark mode styles
+                      document.body.style.backgroundColor = '#101010';
+                      document.body.style.color = '#FFFFFF';
                     }
                     
             }
