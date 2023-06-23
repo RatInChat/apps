@@ -481,14 +481,10 @@
                     
                       navBarTitle.innerText = 'Settings';
                       navBarTitle.style = `
-                        font-size: 20px;
+                        font-size: 24px;
                         font-weight: bold;
                         color: #FFFFFF;
-                        margin: 10px;
-                        margin-left: 20px;
-                        margin-right: 20px;
-                        text-align: center;
-                        line-height: 1;
+                        margin: 20px;
                       `;
                       navBarTitle.classList.add('nav-bar-titledd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
                       navBar.appendChild(navBarTitle);
@@ -497,10 +493,11 @@
                         flex-direction: column;
                         justify-content: flex-start;
                         align-items: center;
-                        background-color: #101010;
+                        background-color: #333333;
                         height: 100%;
                         width: 200px;
-                        border-right: 1px solid #FFFFFF;
+                        border-right: 2px solid #555555;
+                        border-radius: 5px;
                       `;
                       navBar.classList.add('nav-bardd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
                       preferences.style = `
@@ -508,32 +505,34 @@
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
-                        background-color: #101010;
+                        background-color: #FFFFFF;
                         height: 100%;
                         width: calc(100% - 200px);
+                        border-radius: 5px;
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
                       `;
                     
                       for (let i = 0; i < navBarItems.length; i++) {
                         const item = document.createElement('div');
                         item.innerText = navBarItems[i].name;
                         item.style = `
-                          font-size: 20px;
+                          font-size: 18px;
                           font-weight: bold;
-                          color: #FFFFFF;
+                          color: #333333;
                           margin: 10px;
-                          margin-left: 20px;
-                          margin-right: 20px;
+                          padding: 10px;
                           text-align: center;
-                          line-height: 1;
                           cursor: pointer;
                         `;
                         item.classList.add('nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
                         item.addEventListener('click', () => {
                           const items = document.querySelectorAll('.nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
                           for (let i = 0; i < items.length; i++) {
-                            items[i].style.backgroundColor = 'transparent';
+                            items[i].style.backgroundColor = '#FFFFFF';
+                            items[i].style.color = '#333333';
                           }
-                          item.style.backgroundColor = 'gray';
+                          item.style.backgroundColor = '#555555';
+                          item.style.color = '#FFFFFF';
                           const settings = document.querySelectorAll('.settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
                           for (let i = 0; i < settings.length; i++) {
                             settings[i].style.display = 'none';
@@ -548,9 +547,10 @@
                       box.appendChild(preferences);
                     
                       // Set "Preferences" as the default selected option
-                      const defaultItem = document.querySelector('.nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                      const defaultItem = document.querySelector('.nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso:nth-child(2)');
                       if (defaultItem) {
-                        defaultItem.style.backgroundColor = 'gray';
+                        defaultItem.style.backgroundColor = '#555555';
+                        defaultItem.style.color = '#FFFFFF';
                         const defaultSetting = document.getElementById('settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso_preferences');
                         if (defaultSetting) {
                           defaultSetting.style.display = 'flex';
