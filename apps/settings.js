@@ -458,18 +458,18 @@
                     });
                     // check what page
                     if (page === 'Preferences') {
-                      const prefrences = document.createElement('div');
-                      const nav_bar = document.createElement('div');
-                      const nav_bar_title = document.createElement('div');
-                      const nav_bar_items = [
+                      const preferences = document.createElement('div');
+                      const navBar = document.createElement('div');
+                      const navBarTitle = document.createElement('div');
+                      const navBarItems = [
                         {
                           name: 'General',
                           id: 'general',
                           icon: '',
                         },
                         {
-                          name: 'Prefrences',
-                          id: 'prefrences',
+                          name: 'Preferences',
+                          id: 'preferences',
                           icon: '',
                         },
                         {
@@ -478,9 +478,9 @@
                           icon: '',
                         },
                       ];
-
-                      nav_bar_title.innerText = 'Settings';
-                      nav_bar_title.style = `
+                    
+                      navBarTitle.innerText = 'Settings';
+                      navBarTitle.style = `
                         font-size: 20px;
                         font-weight: bold;
                         color: #FFFFFF;
@@ -489,33 +489,33 @@
                         margin-right: 20px;
                         text-align: center;
                         line-height: 1;
-                        flex: 1;
-                        `;
-                      nav_bar_title.classList.add('nav-bar-titledd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
-                      nav_bar.appendChild(nav_bar_title);
-                      nav_bar.style = `
+                      `;
+                      navBarTitle.classList.add('nav-bar-titledd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                      navBar.appendChild(navBarTitle);
+                      navBar.style = `
                         display: flex;
-                        justify-content: center;
+                        flex-direction: column;
+                        justify-content: flex-start;
                         align-items: center;
                         background-color: #101010;
-                        height: 40px;
-                        width: 100%;
-                        border-bottom: 1px solid #FFFFFF;
-                        `;
-                      nav_bar.classList.add('nav-bardd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
-                      prefrences.style = `
+                        height: 100%;
+                        width: 200px;
+                        border-right: 1px solid #FFFFFF;
+                      `;
+                      navBar.classList.add('nav-bardd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                      preferences.style = `
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
                         background-color: #101010;
                         height: 100%;
-                        width: 100%;
-                        `;
-
-                      for (let i = 0; i < nav_bar_items.length; i++) {
+                        width: calc(100% - 200px);
+                      `;
+                    
+                      for (let i = 0; i < navBarItems.length; i++) {
                         const item = document.createElement('div');
-                        item.innerText = nav_bar_items[i].name;
+                        item.innerText = navBarItems[i].name;
                         item.style = `
                           font-size: 20px;
                           font-weight: bold;
@@ -525,8 +525,7 @@
                           margin-right: 20px;
                           text-align: center;
                           line-height: 1;
-                          flex: 1;
-                          `;
+                        `;
                         item.classList.add('nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
                         item.addEventListener('click', () => {
                           const items = document.querySelectorAll('.nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
@@ -538,14 +537,24 @@
                           for (let i = 0; i < settings.length; i++) {
                             settings[i].style.display = 'none';
                           }
-                          const setting = document.getElementById(`settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso_${nav_bar_items[i].id}`);
+                          const setting = document.getElementById(`settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso_${navBarItems[i].id}`);
                           setting.style.display = 'flex';
                         });
-                        nav_bar.appendChild(item);
+                        navBar.appendChild(item);
                       }
                       
-                      box.appendChild(prefrences);
-                      box.appendChild(nav_bar);
-                  }
+                      box.appendChild(navBar);
+                      box.appendChild(preferences);
+                    
+                      // Set "Preferences" as the default selected option
+                      const defaultItem = document.querySelector('.nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                      if (defaultItem) {
+                        defaultItem.style.backgroundColor = 'gray';
+                        const defaultSetting = document.getElementById('settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso_preferences');
+                        if (defaultSetting) {
+                          defaultSetting.style.display = 'flex';
+                        }
+                      }
+                    }
             }
          }
