@@ -525,6 +525,7 @@
                           margin-right: 20px;
                           text-align: center;
                           line-height: 1;
+                          cursor: pointer;
                         `;
                         item.classList.add('nav-bar-itemdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
                         item.addEventListener('click', () => {
@@ -543,7 +544,7 @@
                         navBar.appendChild(item);
                       }
                       
-                      box.appendChild(navBar);
+                      preferences.appendChild(navBar);
                       box.appendChild(preferences);
                     
                       // Set "Preferences" as the default selected option
@@ -556,5 +557,6 @@
                         }
                       }
                     }
+                    
             }
          }
