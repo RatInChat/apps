@@ -444,17 +444,103 @@
                       if (!minimized) return;
                       if (box.id !== `settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso${date}`) return;
                       if (box.style.display !== 'none') return;
-                      const box2 = document.getElementById(box.id);
-                      box2.style.display = 'flex';
-                      box2.classList.add('maximize-animation');
-                      setTimeout(() => {
-                        icon.classList.add('icon-bounce-animation');
-                        box2.classList.remove('maximize-animation');
+                      const windows = document.querySelectorAll('.windowdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                      const windowsArray = Array.from(windows);
+                      const openWindows = windowsArray.filter((window) => window.style.display !== 'none');
+                      if (openWindows.length > 1) {
+                        // show a little menu to choose which window to open
+                        const menu = document.createElement('div');
+                        menu.classList.add('window-menu');
+                        menu.style = `
+                          position: absolute !important;
+                          top: 0 !important;
+                          right: 0 !important;
+                          background-color: #101010 !important;
+                          color: #FFFFFF !important;
+                          border: none !important;
+                          border-radius: 5px !important;
+                          padding: 5px !important;
+                          margin: 5px !important;
+                          height:  !important;
+                          width: 40px !important;
+                          display: flex !important;
+                          justify-content: center !important;
+                          align-items: center !important;
+                          font-size: 18px !important;
+                          font-weight: bold !important;
+                          line-height: 1 !important;
+                          z-index: 10001 !important;
+                          -webkit-touch-callout: none !important;
+                          -webkit-user-select: none !important;
+                          -khtml-user-select: none !important;
+                          -moz-user-select: none !important;
+                          -ms-user-select: none !important;
+                          user-select: none !important;
+                        `;
+                        const menuList = document.createElement('ul');
+                        menuList.classList.add('window-menu-list');
+                        menuList.style = `
+                          list-style: none !important;
+                          margin: 0 !important;
+                          padding: 0 !important;
+                          display: flex !important;
+                          flex-direction: column !important;
+                          justify-content: center !important;
+                          align-items: center !important;
+                        `;
+                        menu.appendChild(menuList);
+                        openWindows.forEach((window) => {
+                          const menuItem = document.createElement('li');
+                          menuItem.classList.add('window-menu-item');
+                          menuItem.style = `
+                            margin: 5px !important;
+                            padding: 5px !important;
+                            display: flex !important;
+                            justify-content: center !important;
+                            align-items: center !important;
+                            font-size: 18px !important;
+                            font-weight: bold !important;
+                            line-height: 1 !important;
+                            cursor: pointer !important;
+                          `;
+                          menuItem.innerText = window.id;
+                          menuItem.addEventListener('mouseover', () => {
+                            menuItem.style.backgroundColor = 'gray';
+                          });
+                          menuItem.addEventListener('mouseout', () => {
+                            menuItem.style.backgroundColor = '#101010';
+                          });
+                          menuItem.addEventListener('click', () => {
+                            const windowToOpen = document.getElementById(menuItem.innerText);
+                            windowToOpen.style.display = 'flex';
+                            windowToOpen.classList.add('maximize-animation');
+                            setTimeout(() => {
+                              icon.classList.add('icon-bounce-animation');
+                              windowToOpen.classList.remove('maximize-animation');
+                              setTimeout(() => {
+                                icon.classList.remove('icon-bounce-animation');
+                                minimized = false;
+                                menu.remove();
+                              }, 500);
+                            }, 500);
+                          });
+                          menuList.appendChild(menuItem);
+                        }
+                        );
+                        box.appendChild(menu);
+                      } else {
+                        const box2 = document.getElementById(box.id);
+                        box2.style.display = 'flex';
+                        box2.classList.add('maximize-animation');
                         setTimeout(() => {
-                          icon.classList.remove('icon-bounce-animation');
-                          minimized = false;
+                          icon.classList.add('icon-bounce-animation');
+                          box2.classList.remove('maximize-animation');
+                          setTimeout(() => {
+                            icon.classList.remove('icon-bounce-animation');
+                            minimized = false;
+                          }, 500);
                         }, 500);
-                      }, 500);
+                      }
                     });
                     // check what page
                     if (page === 'Preferences') {
