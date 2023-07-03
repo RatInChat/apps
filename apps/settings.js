@@ -26,7 +26,6 @@
                                 flex-direction: column;
                                 align-items: center;
                                 justify-content: center;
-                                max-width: ${mainframe.offsetWidth}px;
                                 max-height: ${mainframe.offsetHeight - document.querySelector('#taskbardd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso').offsetHeight - 1}px;
                                 bottom: 0;
                             `;
