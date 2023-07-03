@@ -464,7 +464,7 @@
                           display: flex;
                           justify-content: center;
                           align-items: center;
-                          z-index: 100001;
+                          z-index: 1000001;
                         `;
                         const menuBox = document.createElement('div');
                         menuBox.classList.add('window-menu-box');
