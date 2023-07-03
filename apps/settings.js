@@ -442,91 +442,93 @@
                     icon.addEventListener('click', () => {
                       if (!minimized) return;
                       if (box.id !== `settingsdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso${date}`) return;
-                      if (box.style.display !== 'none') return;
+                      if (box.style.display !== 'none') {
+                        const minimizeButton = document.querySelector('.minimizeButtondd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
+                        minimizeButton.click();
+                        return;
+                      };
                       const windows = document.querySelectorAll('.windowdd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso');
                       const windowsArray = Array.from(windows);
-                      const openWindows = windowsArray.filter((window) => window.style.display !== 'none');
-                      if (openWindows.length > 1) {
-                        // show a little menu to choose which window to open
+                      const windowName = icon.id.split('taskbarIcon')[1];
+                      const sortedWindows = windowsArray.filter((window) => window.id.includes(windowName));
+                      if (sortedWindows.length > 1) {
                         const menu = document.createElement('div');
                         menu.classList.add('window-menu');
                         menu.style = `
-                          position: absolute !important;
-                          top: 0 !important;
-                          right: 0 !important;
-                          background-color: #101010 !important;
-                          color: #FFFFFF !important;
-                          border: none !important;
-                          border-radius: 5px !important;
-                          padding: 5px !important;
-                          margin: 5px !important;
-                          height:  !important;
-                          width: 40px !important;
-                          display: flex !important;
-                          justify-content: center !important;
-                          align-items: center !important;
-                          font-size: 18px !important;
-                          font-weight: bold !important;
-                          line-height: 1 !important;
-                          z-index: 10001 !important;
-                          -webkit-touch-callout: none !important;
-                          -webkit-user-select: none !important;
-                          -khtml-user-select: none !important;
-                          -moz-user-select: none !important;
-                          -ms-user-select: none !important;
-                          user-select: none !important;
+                          position: absolute;
+                          top: 0;
+                          left: 0;
+                          width: 100%;
+                          height: 100%;
+                          background-color: rgba(0, 0, 0, 0.5);
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          z-index: 10000;
                         `;
-                        const menuList = document.createElement('ul');
-                        menuList.classList.add('window-menu-list');
-                        menuList.style = `
-                          list-style: none !important;
-                          margin: 0 !important;
-                          padding: 0 !important;
-                          display: flex !important;
-                          flex-direction: column !important;
-                          justify-content: center !important;
-                          align-items: center !important;
+                        const menuBox = document.createElement('div');
+                        menuBox.classList.add('window-menu-box');
+                        menuBox.style = `
+                          background-color: #101010;
+                          border-radius: 5px;
+                          padding: 10px;
+                          display: flex;
+                          flex-direction: column;
+                          justify-content: center;
+                          align-items: center;
+                          width: 200px;
+                          height: 200px;
                         `;
-                        menu.appendChild(menuList);
-                        openWindows.forEach((window) => {
-                          const menuItem = document.createElement('li');
-                          menuItem.classList.add('window-menu-item');
+                        const menuTitle = document.createElement('h1');
+                        menuTitle.innerText = 'Open';
+                        menuTitle.style = `
+                          color: #FFFFFF;
+                          font-size: 18px;
+                          font-weight: bold;
+                          margin: 0;
+                          padding: 0;
+                          margin-bottom: 10px;
+                        `;
+                        menuBox.appendChild(menuTitle);
+                        sortedWindows.forEach((window) => {
+                          const menuItem = document.createElement('button');
+                          menuItem.innerText = window.id.split('dd1683592387221_1683592387222_32830ufdskjhafdisa8y839yhfidso')[1];
                           menuItem.style = `
-                            margin: 5px !important;
-                            padding: 5px !important;
-                            display: flex !important;
-                            justify-content: center !important;
-                            align-items: center !important;
-                            font-size: 18px !important;
-                            font-weight: bold !important;
-                            line-height: 1 !important;
-                            cursor: pointer !important;
+                            background-color: transparent;
+                            border: none;
+                            color: #FFFFFF;
+                            font-size: 18px;
+                            font-weight: bold;
+                            margin: 0;
+                            padding: 0;
+                            margin-bottom: 10px;
                           `;
-                          menuItem.innerText = window.id;
                           menuItem.addEventListener('mouseover', () => {
                             menuItem.style.backgroundColor = 'gray';
                           });
                           menuItem.addEventListener('mouseout', () => {
-                            menuItem.style.backgroundColor = '#101010';
+                            menuItem.style.backgroundColor = 'transparent';
                           });
                           menuItem.addEventListener('click', () => {
-                            const windowToOpen = document.getElementById(menuItem.innerText);
-                            windowToOpen.style.display = 'flex';
-                            windowToOpen.classList.add('maximize-animation');
+                            const menu = document.querySelector('.window-menu');
+                            menu.style.display = 'none';
+                            const box2 = document.getElementById(window.id);
+                            box2.style.display = 'flex';
+                            box2.classList.add('maximize-animation');
                             setTimeout(() => {
                               icon.classList.add('icon-bounce-animation');
-                              windowToOpen.classList.remove('maximize-animation');
+                              box2.classList.remove('maximize-animation');
                               setTimeout(() => {
                                 icon.classList.remove('icon-bounce-animation');
                                 minimized = false;
-                                menu.remove();
                               }, 500);
                             }, 500);
                           });
-                          menuList.appendChild(menuItem);
-                        }
-                        );
-                        box.appendChild(menu);
+                          menuBox.appendChild(menuItem);
+                        });
+                        menu.appendChild(menuBox);
+                        document.body.appendChild(menu);
+                        return;
                       } else {
                         const box2 = document.getElementById(box.id);
                         box2.style.display = 'flex';
