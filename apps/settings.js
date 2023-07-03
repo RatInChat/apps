@@ -147,8 +147,8 @@
                       old_size.height = box.style.height;
                       box.style.width = '100vw';
                       box.style.height = `calc(100vh - 55px)`;
-                      box.style.left = '${mainframe.offsetLeft}px';
-                      box.style.top = '${mainframe.offsetTop}px';
+                      box.style.left = '0px';
+                      box.style.top = '0px';
                       restored = false;
                       box.style.border = 'none';
                     }
