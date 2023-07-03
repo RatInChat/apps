@@ -464,7 +464,7 @@
                           display: flex;
                           justify-content: center;
                           align-items: center;
-                          z-index: 10000;
+                          z-index: 100001;
                         `;
                         const menuBox = document.createElement('div');
                         menuBox.classList.add('window-menu-box');
@@ -511,7 +511,7 @@
                           });
                           menuItem.addEventListener('click', () => {
                             const menu = document.querySelector('.window-menu');
-                            menu.style.display = 'none';
+                            menu.remove();
                             const box2 = document.getElementById(window.id);
                             box2.style.display = 'flex';
                             box2.classList.add('maximize-animation');
